@@ -19,7 +19,7 @@ def game():
     return render_template('game.html')
 
 
-@app.route("/taphtml")
+@app.route("/taphtml", methods=['POST'])
 def taphtml():
     return render_template('taphtml.html')
 
