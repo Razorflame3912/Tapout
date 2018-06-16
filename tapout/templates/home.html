@@ -3,9 +3,13 @@
 
 {% block body %}
 <h1>Welcome to Tapout!</h1>
-      Name: <input type="text" id="namebar" placeholder="Name" name="username" required><br><br>
-      <input type="text" id="codebar" placeholder="Room Code" name="roomcode">
-      <input id="joinbutton" type="submit" name="submit" value="Join a Room!"><br><br>
-      Or... create a room! <input id="createbutton" type="submit" name="submit" value="Create a Room!">
-      <br>
+Name: <input type="text" id="namebar" placeholder="Name" name="username" required><br><br>
+<input type="text" id="codebar" placeholder="Room Code" name="roomcode">
+<input id="joinbutton" type="submit" name="submit" value="Join a Room!"><br><br>
+Or... create a room! <input id="createbutton" type="submit" name="submit" value="Create a Room!">
+<br>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/home.js' ) }}"></script>
 {% endblock %}

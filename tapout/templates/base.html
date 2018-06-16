@@ -36,9 +36,23 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/firebase-database.js' ) }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/firebase-auth.js' ) }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js' ) }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js' ) }}"></script>
 
-    {% block js %}{% endblock %}
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAkxwgAp-nCCb9LOxKzQSro3rH0YlRLAbs",
+        authDomain: "tapout-78e51.firebaseapp.com",
+        databaseURL: "https://tapout-78e51.firebaseio.com",
+        projectId: "tapout-78e51",
+        storageBucket: "tapout-78e51.appspot.com",
+        messagingSenderId: "811701556714"
+      };
+      firebase.initializeApp(config);
+      var db = firebase.database();
+    </script>
+
+    {% block js %}
+    {% endblock %}
   </body>
 
 </html>
