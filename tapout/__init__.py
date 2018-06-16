@@ -13,6 +13,10 @@ app.secret_key = 'legit_secret_key'
 def root():
     return render_template('home.html')
 
+@app.route("/game")
+def game():
+    return render_template('game.html')
+
 
 if __name__ == '__main__':
     app.debug = True
