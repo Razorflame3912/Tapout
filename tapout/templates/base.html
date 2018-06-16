@@ -10,11 +10,10 @@
   </head>
 
   <body>
-    <!-- Image and text -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" role="navigation">
-      <a class="navbar-brand" href="/">Navbar</a>
+    <nav class="navbar navbar-expand-lg navbar-dark navby rounded" role="navigation">
+      <a class="navbar-brand" href="/">Tapout!</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon">x</span>
+        <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
@@ -33,12 +32,15 @@
     <center><h2>{{ message }}</h2></center>
     {% endfor %}
     {% endwith %}
+    <div class="body-container">
     {% block body %}{% endblock %}
+    </div>
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/firebase-app.js' ) }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/firebase-database.js' ) }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/firebase-auth.js' ) }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js' ) }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js' ) }}"></script>
 
     <script>
       // Initialize Firebase
@@ -57,5 +59,4 @@
     {% block js %}
     {% endblock %}
   </body>
-
 </html>

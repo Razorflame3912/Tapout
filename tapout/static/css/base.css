@@ -1,7 +1,18 @@
-.collapse.in { /*for some reason navbar breaks without this*/
-      display: block;
+body {
+    background-color: #fee9bc;
+    background-image: url("/static/img/background.png");
+    background-size: 100vw 100vh;
 }
 
-nav {
-    margin-bottom: 10px;
+.body-container {
+    margin: 20px;
+}
+
+.collapse.in { /*for some reason navbar breaks without this*/
+    display: block;
+}
+
+.navby {
+    background-color: #850101;
+    margin: 10px;
 }
