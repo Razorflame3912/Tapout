@@ -164,8 +164,7 @@ firebase.auth().onAuthStateChanged(function(user){
           }
           console.log(count);
           setTimeout(function(){
-            roomRef.update({state: 'over' }, count * roundlength);
-          });
+            roomRef.update({state: 'over' });},XS count * roundlength);
         });
       }
       roomRef.child('songs').once('value').then(function(songs){

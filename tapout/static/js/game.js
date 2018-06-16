@@ -28,7 +28,7 @@ var buttonTapWrap = function(e) {
 
 var playSeries = function(abc){
   for (var tim in abc){
-    setTimeout(playDrum, abc[tim]);
+    setTimeout(playOnce, abc[tim]);
   }
 };
 
