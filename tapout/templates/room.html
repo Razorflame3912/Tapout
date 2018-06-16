@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Tapout!{% endblock %}
+
+{% block body %}
+<h1>Welcome to Tapout!</h1>
+<h1 id="codeh1">Room Code:</h1>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/room.js' ) }}"></script>
+{% endblock %}

@@ -21,6 +21,10 @@ def game():
 @app.route("/about")
 def about():
     return render_template('about.html')
+@app.route('/room/<code>')
+def room(code):
+    return render_template('room.html')
+
 
 
 if __name__ == '__main__':

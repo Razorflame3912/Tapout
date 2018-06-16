@@ -6,8 +6,11 @@ var username = '';
 var create = false;
 var join = false;
 console.log('HOMEJS IMPORTED');
+console.log(firebase.auth().currentUser);
+console.log(firebase.auth().currentUser);
 
-firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+
   .then(function() {
     // Existing and future Auth states are now persisted in the current
     // session only. Closing the window would clear any existing state even
@@ -36,8 +39,30 @@ var createRoom = function(){
   }
 };
 
+var joinRoom = function(){
+  join = true;
+   if(namebar.value != ''){
+    username = namebar.value;
+    firebase.auth().signInAnonymously().catch(function(error) {
+      console.log('signing in');
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+    });
+   }
+};
+
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
+    if(!create && !join){
+      firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+      }).catch(function(error) {
+        // An error happened.
+      });
+
+    }
     // User is signed in.
     console.log(user);
     var data = {
@@ -61,11 +86,30 @@ firebase.auth().onAuthStateChanged(function(user) {
 
     }
 
+    if(join){
+      var code = codebar.value;
+      db.ref('/rooms/' + code).once('value').then(function(roomval){
+        if(roomval.val() == null){
+          console.log('room does not exist');
+          join = false;
+          firebase.auth().signOut().then(function() {
+            // Sign-out successful.
+          }).catch(function(error) {
+            // An error happened.
+          });
+        }
+        else{
+          document.location.pathname = '/room/' + code;
+        }
 
-  } else {
+      });
+    }
+
+  }
+  else {
     // No user is signed in.
   }
 });
 
-
 createbutton.addEventListener('click',createRoom);
+joinbutton.addEventListener('click',joinRoom);
