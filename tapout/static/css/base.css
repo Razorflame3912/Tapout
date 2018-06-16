@@ -1,3 +1,7 @@
 .collapse.in { /*for some reason navbar breaks without this*/
       display: block;
 }
+
+nav {
+    margin-bottom: 10px;
+}

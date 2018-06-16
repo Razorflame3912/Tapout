@@ -10,12 +10,17 @@ app.secret_key = 'legit_secret_key'
 
 
 @app.route("/")
+@app.route("/home")
 def root():
     return render_template('home.html')
 
 @app.route("/game")
 def game():
     return render_template('game.html')
+
+@app.route("/about")
+def about():
+    return render_template('about.html')
 
 
 if __name__ == '__main__':
