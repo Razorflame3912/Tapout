@@ -188,12 +188,12 @@ firebase.auth().onAuthStateChanged(function(user){
               var buttonsdiv = $('#buttons')[0];
               header.innerHTML = currentname + "'s song tapped out!";
               console.log('constructing buttons...');
+              playSeries(timetable);
               if(firebase.auth().currentUser.uid != usersnap.val()){
 
 
                 console.log(songdic);
 
-                playSeries(timetable);
                 for(i in songdic){
                   var songname = songdic[i]['title'];
                   console.log('songname: ' + songname);
