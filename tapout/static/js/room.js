@@ -174,11 +174,11 @@ firebase.auth().onAuthStateChanged(function(user){
         console.log(songdic);
         roomRef.child('currentSong').on('value', function(usersnap){
           console.log('current user ID: ' + usersnap.val());
-          roomRef.child('songs').child(usersnap.val()).once('value').then(function(songsnap){
-            var song = songsnap.val();
-            console.log('the current song');
-            console.log(song);
-            var timetable = song['timetable'];
+          roomRef.child('songs').child(usersnap.val()).child('timetable').once('value').then(function(songsnap){
+            var timetable = songsnap.val();
+            //console.log('the current song');
+            //console.log(song);
+            //var timetable = song['timetable'];
             console.log('timetable:');
             console.log(timetable);
             db.ref('users/' + usersnap.val()).child('name').once('value').then(function(namesnap){
@@ -192,6 +192,8 @@ firebase.auth().onAuthStateChanged(function(user){
 
 
                 console.log(songdic);
+
+                playSeries(timetable);
                 for(i in songdic){
                   var songname = songdic[i]['title'];
                   console.log('songname: ' + songname);
@@ -225,7 +227,6 @@ firebase.auth().onAuthStateChanged(function(user){
                   buttonsdiv.appendChild(button);
                 }
               }
-              playSeries(timetable);
             });
           });
         });
