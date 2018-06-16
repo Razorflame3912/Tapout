@@ -213,9 +213,9 @@ firebase.auth().onAuthStateChanged(function(user){
                       console.log(scoredic);
                       console.log(myid);
                       console.log(usersnap.val());
-                      scoredic[myid] += 1000;
                       if(myid == usersnap.val()){
                         scoredic[usersnap.val()] += 500;
+                        scoredic[myid] += 1000;
                         roomRef.update({scores: scoredic});
                         thebutton.style.color = "green";
                       }
