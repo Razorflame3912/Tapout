@@ -43,8 +43,8 @@ firebase.auth().onAuthStateChanged(function(user){
     nameRef.once('value').then(function(userSnap){
       userdict = userSnap.val();
       for(i in users){
-        var username = '';
         console.log(i);
+        var username = '';
         username = userdict[users[i]]['name'];
         console.log(username);
         var userdiv = document.createElement('div');
@@ -55,8 +55,8 @@ firebase.auth().onAuthStateChanged(function(user){
   });
   },1000);
 
+  var timekeeper;
   stateRef.on('value', function(snapshot){
-    var timekeeper;
     if(snapshot.val() == 'started'){
       roomRef.child('currentUsers').once('value').then(function(roomval){
         timekeeper = roomval.val()[0];
@@ -92,6 +92,28 @@ firebase.auth().onAuthStateChanged(function(user){
         url: "/taphtml",
         data: {},
         success: function(d) {
+          console.log(timekeeper);
+          console.log(firebase.auth().currentUser.uid);
+          if(firebase.auth().currentUser.uid == timekeeper){
+            console.log('DAT ME!');
+            setTimeout(function(){
+              console.log("time's up! updating");
+              roomRef.update({state: 'guessing'});
+              var scoredic = {};
+              currentUsers.once('value').then(function(snap){
+                var users = snap.val();
+                for(i in users){
+                  scoredic[users[i]]  = 0;
+                }
+                roomRef.child('scores').set(scoredic);
+              });
+            },10500);
+          }
+
+
+
+
+
           contentdiv.innerHTML = d;
           tapper = document.getElementById("tapper");
           taplist = [];
@@ -105,9 +127,116 @@ firebase.auth().onAuthStateChanged(function(user){
 
           tapper.addEventListener("click", buttonTapped);
           $("body")[0].addEventListener("keyup", buttonTapWrap);
+
+
+
+
+
+
+
         }
-    });
+      });
     }
+    if(snapshot.val() == 'guessing'){
+      /* GUESSING CODE HERE */
+      contentdiv.innerHTML = `
+<h1 id="nameheader"></h1>
+<h3>Listen closely!</h3>
+<div id="buttons">
+
+</div>
+
+
+`;
+      if(firebase.auth().currentUser.uid == timekeeper){
+        console.log('DAT ME!');
+        roomRef.child('songs').once('value').then(function(songsnap){
+          var songs = songsnap.val();
+          console.log(songs);
+          var roundlength = 30000;
+          var i;
+          var count = 0;
+          for(i in songs){
+            setTimeout(function(){
+              roomRef.update({currentSong: i });
+            },i*roundlength);
+            count++;
+          }
+          console.log(count);
+          setTimeout(function(){
+            roomRef.update({state: 'over' }, count * roundlength);
+          });
+        });
+      }
+      roomRef.child('songs').once('value').then(function(songs){
+        var songdic = songs.val();
+        console.log('DIC OF SONGS');
+        console.log(songdic);
+        roomRef.child('currentSong').on('value', function(usersnap){
+          console.log('current user ID: ' + usersnap.val());
+          roomRef.child('songs').child(usersnap.val()).once('value').then(function(songsnap){
+            var song = songsnap.val();
+            console.log('the current song');
+            console.log(song);
+            var timetable = song['timetable'];
+            console.log('timetable:');
+            console.log(timetable);
+            db.ref('users/' + usersnap.val()).child('name').once('value').then(function(namesnap){
+              var currentname = namesnap.val();
+              console.log('name of currentuser: ' + currentname);
+              var header = $('#nameheader')[0];
+              var buttonsdiv = $('#buttons')[0];
+              header.innerHTML = currentname + "'s song tapped out!";
+              console.log('constructing buttons...');
+              if(firebase.auth().currentUser.uid == usersnap.val()){
+
+
+                console.log(songdic);
+                for(i in songdic){
+                  var songname = songdic[i]['title'];
+                  console.log('songname: ' + songname);
+                  //var buttondiv = document.createElement('div');
+                  var button = document.createElement('button');
+                  button.innerHTML = songname;
+                  button.id = i;
+                  button.addEventListener('click', function(){
+                    console.log(this);
+                    //this.style.color = 'yellow';
+                    var myid = this.id;
+                    var thebutton = this;
+                    roomRef.child('scores').once('value').then(function(scores){
+                      var scoredic = scores.val();
+                      console.log('scores as of rn');
+                      console.log(scoredic);
+                      console.log(myid);
+                      console.log(usersnap.val());
+                      scoredic[myid] += 1000;
+                      if(myid == usersnap.val()){
+                        scoredic[usersnap.val()] += 500;
+                        roomRef.update({scores: scoredic});
+                        thebutton.style.color = "green";
+                      }
+                      else{
+                        thebutton.style.color = "red";
+                      }
+                    });
+                  });
+                  //buttondiv.appendChild(button);
+                  buttonsdiv.appendChild(button);
+                }
+              }
+              playSeries(timetable);
+            });
+          });
+        });
+      });
+
+
+
+    }
+
+    if(snapshot.val() == 'over')
+      document.location.pathname = '/sakljfdls';
   });
 
 });

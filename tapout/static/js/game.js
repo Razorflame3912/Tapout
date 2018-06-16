@@ -26,10 +26,10 @@ var buttonTapWrap = function(e) {
   }
 };
 
-var playSeries = function(){
-  for (var tim in taplist){
+var playSeries = function(list){
+  for (var tim in list){
     //setInterval(playDrum, tim);
-    setTimeout(playDrum, taplist[tim]);
+    setTimeout(playDrum, list[tim]);
     //console.log(tim);
   }
   //clearInterval();
@@ -41,8 +41,8 @@ var gameover = function() {
     console.log(taplist);
     game = false;
     // send stuff to firebase
-    db.ref('/rooms/' + window.location.href.split('/')[ window.location.href.split('/').length - 1]).child('songs').child(firebase.auth().currentUser.uid).push({timetable: taplist});
-    playSeries();
+    db.ref('/rooms/' + window.location.href.split('/')[ window.location.href.split('/').length - 1]).child('songs').child(firebase.auth().currentUser.uid).update({timetable: taplist});
+    //playSeries();
   }
 };
 
