@@ -26,13 +26,10 @@ var buttonTapWrap = function(e) {
   }
 };
 
-var playSeries = function(list){
-  for (var tim in list){
-    //setInterval(playDrum, tim);
-    setTimeout(playDrum, list[tim]);
-    //console.log(tim);
+var playSeries = function(abc){
+  for (var tim in abc){
+    setTimeout(playDrum, abc[tim]);
   }
-  //clearInterval();
 };
 
 var gameover = function() {
@@ -83,12 +80,3 @@ var playOnce = function(){
         }
     }, 10);
 } 
-
-
-var playSeries = function(){
-    for (var tim in taplist){
-	//setInterval(playDrum, tim);
-	setTimeout(playOnce, taplist[tim]);
-	//console.log(tim);
-    }
-}

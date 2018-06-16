@@ -188,6 +188,7 @@ firebase.auth().onAuthStateChanged(function(user){
               var buttonsdiv = $('#buttons')[0];
               header.innerHTML = currentname + "'s song tapped out!";
               console.log('constructing buttons...');
+              console.log(timetable);
               playSeries(timetable);
               if(firebase.auth().currentUser.uid != usersnap.val()){
 
