@@ -90,3 +90,5 @@ var playSeries = function(){
 	//setInterval(playDrum, tim);
 	setTimeout(playOnce, taplist[tim]);
 	//console.log(tim);
+    }
+}
