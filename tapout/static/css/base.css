@@ -1,0 +1,3 @@
+.collapse.in { /*for some reason navbar breaks without this*/
+      display: block;
+}
