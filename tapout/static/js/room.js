@@ -159,7 +159,7 @@ firebase.auth().onAuthStateChanged(function(user){
           for(i in songs){
             setTimeout(function(){
               roomRef.update({currentSong: i });
-            },i*roundlength);
+            },count*roundlength);
             count++;
           }
           console.log(count);
