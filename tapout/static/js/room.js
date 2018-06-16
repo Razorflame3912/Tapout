@@ -81,15 +81,32 @@ firebase.auth().onAuthStateChanged(function(user){
       var pickbutton = $('#picked')[0];
       pickbutton.addEventListener('click', function(){
         if(songbox.value != ''){
-          roomRef.child('/songs/' + songbox.value).update({user: firebase.auth().currentUser.uid});
+          roomRef.child('/songs/' + firebase.auth().currentUser.uid).update({title: songbox.value});
         }
       });
     }
     if(snapshot.val()== 'tapping'){
       contentdiv.innerHTML = '';
-      /*
-GAME CODE HERE
-       */
+      $.ajax({
+        type: "POST",
+        url: "/taphtml",
+        data: {},
+        success: function(d) {
+          contentdiv.innerHTML = d;
+          tapper = document.getElementById("tapper");
+          taplist = [];
+          startTime = Date.now();
+          endTime = startTime + 10000;
+          game = true;
+          timer = setInterval(gameover, 500);
+          audio = document.createElement('audio');
+          audio.src = '/static/audio/drum.wav';
+          audio.volume = 0.5;
+
+          tapper.addEventListener("click", buttonTapped);
+          $("body")[0].addEventListener("keyup", buttonTapWrap);
+        }
+    });
     }
   });
 
