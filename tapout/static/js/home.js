@@ -66,7 +66,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     // User is signed in.
     console.log(user);
     var data = {
-      name: username,
+      name: username
     };
     db.ref("/users").child(firebase.auth().currentUser.uid).set(data);
 
@@ -77,10 +77,10 @@ firebase.auth().onAuthStateChanged(function(user) {
         var selected = chars[Math.floor(Math.random() * chars.length)];
         code += selected;
       }
-      var data = {
+      var pushdata = {
         state: 'waiting'
       };
-      db.ref('rooms/' + code).set(data);
+      db.ref('rooms/' + code).set(pushdata);
 
       document.location.pathname = '/room/' + code;
 
@@ -91,6 +91,15 @@ firebase.auth().onAuthStateChanged(function(user) {
       db.ref('/rooms/' + code).once('value').then(function(roomval){
         if(roomval.val() == null){
           console.log('room does not exist');
+          join = false;
+          firebase.auth().signOut().then(function() {
+            // Sign-out successful.
+          }).catch(function(error) {
+            // An error happened.
+          });
+        }
+        else if(roomval.val()['state'] == 'started'){
+          console.log('room has already started game');
           join = false;
           firebase.auth().signOut().then(function() {
             // Sign-out successful.

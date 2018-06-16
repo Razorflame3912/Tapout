@@ -2,9 +2,19 @@ var link = window.location.href;
 var linkArr = link.split('/');
 var roomId = linkArr[linkArr.length-1];
 var roomRef = db.ref('/rooms/' + roomId);
+var stateRef = db.ref('/rooms/' + roomId).child('state');
+var contentdiv = $('#content')[0];
 var userbox = $('#userbox')[0];
 var leavebutton = $('#leave')[0];
+var startbutton = $('#start')[0];
 var currentUsers = db.ref('/rooms/' + roomId).child('currentUsers');
+
+roomRef.child('state').once('value').then(function(stateval){
+  if(stateval.val() != "waiting"){
+    document.location.pathname = '/';
+  }
+});
+
 $('#codeh1')[0].innerHTML += roomId;
 console.log(firebase.auth().currentUser);
 firebase.auth().onAuthStateChanged(function(user){
@@ -45,6 +55,44 @@ firebase.auth().onAuthStateChanged(function(user){
   });
   },1000);
 
+  stateRef.on('value', function(snapshot){
+    var timekeeper;
+    if(snapshot.val() == 'started'){
+      roomRef.child('currentUsers').once('value').then(function(roomval){
+        timekeeper = roomval.val()[0];
+        console.log(timekeeper);
+        console.log(firebase.auth().currentUser.uid);
+        if(firebase.auth().currentUser.uid == timekeeper){
+          console.log('DAT ME!');
+          setTimeout(function(){
+            console.log("time's up! updating");
+            roomRef.update({state: 'tapping'});
+          },30000);
+        }
+      });
+      contentdiv.innerHTML = '';
+      contentdiv.innerHTML = `
+<h1>Type in the song you will Tap Out!</h1>
+<h2>Include the song name and author(If there is one)!</h2>
+<input id="songname" type="text" placeholder="Ex: 'Sugar' by Maroon 5">
+<button id="picked">Submit!</button>
+`;
+      var songbox = $('#songname')[0];
+      var pickbutton = $('#picked')[0];
+      pickbutton.addEventListener('click', function(){
+        if(songbox.value != ''){
+          roomRef.child('/songs/' + songbox.value).update({user: firebase.auth().currentUser.uid});
+        }
+      });
+    }
+    if(snapshot.val()== 'tapping'){
+      contentdiv.innerHTML = '';
+      /*
+GAME CODE HERE
+       */
+    }
+  });
+
 });
 
 
@@ -71,8 +119,15 @@ var leaveRoom = function() {
   });
 };
 
+var startGame = function(){
+  roomRef.update({state: 'started'});
+};
+
 leavebutton.addEventListener('click',function(){
   document.location.pathname = '/';
 });
+
+startbutton.addEventListener('click', startGame);
+
 
 window.onunload = leaveRoom;
