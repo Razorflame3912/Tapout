@@ -43,6 +43,7 @@ var timer = setInterval(gameover, 500);
 
 
 var audio = new Audio("static/audio/drum.wav");
+audio.volume = 0.5;
 var playDrum = function(){
     audio.currentTime = 0;
     audio.play();
