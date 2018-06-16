@@ -1,9 +1,23 @@
 body {
-    background-color: #fee9bc;
+    //background-color: #fee9bc;
+    //background-color: #f29fbb;
     background-image: url("/static/img/background.png");
     background-size: 100vw 100vh;
+    color: #ffc9db;
+
+    font-size: 125%;
+    font-weight: bold;
+    //font-family: 'Great Vibes';
+    //font-family: 'Kalam';
+    //font-family: 'Tangerine';
+    //font-family: 'Sans-Serif';
+    font-family: 'Roboto';
 }
 
+h1{
+    font-weight:bold;
+    font-size: 300%;
+}
 .body-container {
     margin: 20px;
 }
@@ -13,11 +27,16 @@ body {
 }
 
 .navby {
-    background-color: #850101;
+    //background-color: #850101;
+    background-color: #a34653;
     margin: 10px;
+    color: #ffc9db;
 }
 
 .btn {
-    background-color: #850101;
-    color: #fee9bc;
+    //background-color: #850101;
+    //color: #fee9bc;
+    background-color: #a34653;
+    //background-color: #bc6974;
+    color: #ffc9db;
 }
