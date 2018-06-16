@@ -188,7 +188,7 @@ firebase.auth().onAuthStateChanged(function(user){
               var buttonsdiv = $('#buttons')[0];
               header.innerHTML = currentname + "'s song tapped out!";
               console.log('constructing buttons...');
-              if(firebase.auth().currentUser.uid == usersnap.val()){
+              if(firebase.auth().currentUser.uid != usersnap.val()){
 
 
                 console.log(songdic);
