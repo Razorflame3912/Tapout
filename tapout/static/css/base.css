@@ -20,16 +20,20 @@ h1{
 }
 
 .navby {
-    //background-color: #850101;
     background-color: #a34653;
     margin: 10px;
     color: #ffc9db;
 }
 
 .btn {
-    //background-color: #850101;
     //color: #fee9bc;
     background-color: #a34653;
     //background-color: #bc6974;
     color: #ffc9db;
+}
+
+input{
+    background-color: #ffe0ea;
+    color: #a03859;
+    font-weight:bold;
 }
