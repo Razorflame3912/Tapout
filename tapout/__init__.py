@@ -18,9 +18,15 @@ def root():
 def game():
     return render_template('game.html')
 
+
+@app.route("/taphtml")
+def taphtml():
+    return render_template('taphtml.html')
+
 @app.route("/about")
 def about():
     return render_template('about.html')
+
 @app.route('/room/<code>')
 def room(code):
     return render_template('room.html')
