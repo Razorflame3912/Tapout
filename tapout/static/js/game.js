@@ -42,24 +42,45 @@ $("body")[0].addEventListener("keyup", buttonTapWrap);
 var timer = setInterval(gameover, 500);
 
 
-var audio = new Audio("static/audio/drum.wav");
-audio.volume = 0.5;
-var playDrum = function(){
-    audio.currentTime = 0;
+var audioType = "drum";
+//var audioType = "piano";
+//var audioType = "guitar";
+
+if(audioType == "drum"){
+    var audio = new Audio("static/audio/drum.wav");
+    audio.volume = 0.5;
+    var startTim = 0;
+    var timeInt = 0.1;
+}
+if(audioType == "piano"){
+    var audio = new Audio("static/audio/piano.mp3");
+    var startTim = 0;
+    var timeInt = 1;
+}
+if(audioType == "guitar"){
+    var audio = new Audio("static/audio/guitar.wav");
+    var startTim = 0.4;
+    var timeInt = 0.625;
+}
+
+
+var playOnce = function(){
+    audio.currentTime = startTim;
     audio.play();
+    
     int = setInterval(function() {
-        if (audio.currentTime > 0.1) {
-            audio.pause();
-            clearInterval(int);
+        if (audio.currentTime > timeInt) {
+	    audio.pause();
+	    clearInterval(int);
         }
     }, 10);
-}    
+} 
 
 
 var playSeries = function(){
     for (var tim in taplist){
 	//setInterval(playDrum, tim);
-	setTimeout(playDrum, taplist[tim]);
+	setTimeout(playOnce, taplist[tim]);
 	//console.log(tim);
     }
     //clearInterval();
