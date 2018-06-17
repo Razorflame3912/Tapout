@@ -4,11 +4,13 @@ input {
     height: 10vh;
     font-size: 36px;
     text-align: center;
+    border: 1px solid #a34653;
+    margin: 1px;
 }
 
 .backing {
     rgba(255, 255, 255, .1);
-    padding: 15px;
+    padding: 10px;
     width: 62vw;
     min-width: 640px;
 }

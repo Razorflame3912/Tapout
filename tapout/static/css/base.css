@@ -16,14 +16,15 @@ h1{
     margin: 20px;
 }
 
-.collapse.in { /*for some reason navbar breaks without this*/
-    display: block;
+.page-header {
+    height: 8vh;
+    background-color: #a34653;
+    color: #ffc9db;
+    margin: 15px;
 }
 
-.navby {
-    background-color: #a34653;
-    margin: 10px;
-    color: #ffc9db;
+.page-header h1 {
+    font-size: 6vh;
 }
 
 .btn {

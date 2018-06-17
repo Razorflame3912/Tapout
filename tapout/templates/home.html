@@ -6,18 +6,18 @@
 {% block body %}
 <center>
   <div class="backing rounded">
+    <h1>Welcome to Tapout!</h1> <br />
+    <input type="text" id="namebar" placeholder="Your Name" name="username" class="rounded" required> <br />
+    <input type="text" id="codebar" placeholder="Room Code" name="roomcode" class="rounded" required> <br />
+    <input id="joinbutton" type="submit" name="submit" value="Join a Room!" class="btn" style="font-size: 36px"> <br /> <br />
 
-  <h1>Welcome to Tapout!</h1> <br />
-  <input type="text" id="namebar" placeholder="Your Name" name="username" required> <br />
-  <input type="text" id="codebar" placeholder="Room Code" name="roomcode" required> <br />
-  <input id="joinbutton" type="submit" name="submit" value="Join a Room!" class="btn"> <br /> <br />
+    <p style="font-size:36px"> Or... </p>
 
-  Or...
+    <br />
 
-  <br><br>
-  <input type="text" id="namebar-create" placeholder="Your Name" name="username" required> <br />
-  <input id="createbutton" type="submit" name="submit" value="Create a Room!" class="btn">
-  <br /> <br />
+    <input type="text" id="namebar-create" placeholder="Your Name" name="username" class="rounded" required> <br />
+    <input id="createbutton" type="submit" name="submit" value="Create a Room!" class="btn" style="font-size: 36px">
+  <br />
   </div>
 </center>
 {% endblock %}
