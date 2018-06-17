@@ -83,6 +83,7 @@ firebase.auth().onAuthStateChanged(function(user){
           },30000);
         }
       });
+      $('#dropme')[0].remove();
       contentdiv.innerHTML = '';
       contentdiv.innerHTML = `
 <h1>Type in the song you will Tap Out!</h1>
@@ -224,7 +225,7 @@ firebase.auth().onAuthStateChanged(function(user){
                 console.log(songdic);
                 var answer = document.createElement('button');
                 answer.className = "btn answer-choice";
-                answer.innerHTML = songdic[usersnap.val()]['title'];
+                answer.innerHTML = songdic[usersnap.val()]['title'].toLowerCase();
                 answer.id = usersnap.val();
                 var j;
                 for(x in songdic){
@@ -235,10 +236,10 @@ firebase.auth().onAuthStateChanged(function(user){
                 }
                 var rand = Math.floor(Math.random() * 5);
                 for(j=0; j<5; j++){
-                  var songname = decoys[0];
+                  var songname = decoys[0].toLowerCase();
                   decoys.shift();
                   while(songname == usersnap.val()){
-                    songname = decoys[0];
+                    songname = decoys[0].toLowerCase();
                     decoys.shift();
                   }
                   console.log('songname: ' + songname);
