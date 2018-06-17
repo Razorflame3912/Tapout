@@ -223,7 +223,7 @@ firebase.auth().onAuthStateChanged(function(user){
 
                 console.log(songdic);
                 var answer = document.createElement('button');
-                answer.className = 'btn';
+                answer.className = "btn answer-choice";
                 answer.innerHTML = songdic[usersnap.val()]['title'];
                 answer.id = usersnap.val();
                 var j;
@@ -237,6 +237,10 @@ firebase.auth().onAuthStateChanged(function(user){
                 for(j=0; j<5; j++){
                   var songname = decoys[0];
                   decoys.shift();
+                  while(songname == usersnap.val()){
+                    songname = decoys[0];
+                    decoys.shift();
+                  }
                   console.log('songname: ' + songname);
                   //var buttondiv = document.createElement('div');
                   var button = document.createElement('button');
@@ -249,6 +253,7 @@ firebase.auth().onAuthStateChanged(function(user){
                   }
                   button.innerHTML = songname;
                   button.id = buttid;
+                  button.className = "btn answer-choice";
                   var buttclick = function(){
                     if(!clicked){
                       clicked = true;
