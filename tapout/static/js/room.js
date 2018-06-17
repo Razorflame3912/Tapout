@@ -172,7 +172,7 @@ firebase.auth().onAuthStateChanged(function(user){
           tapper = document.getElementById("tapper");
           taplist = [];
           startTime = Date.now();
-          endTime = startTime + 10000;
+          endTime = startTime + 20000;
           game = true;
           timer = setInterval(gameover, 500);
           audio = document.createElement('audio');
@@ -339,11 +339,12 @@ firebase.auth().onAuthStateChanged(function(user){
                   buttonsdiv.appendChild(button);
                   buttonsdiv.appendChild(document.createElement('br'));
                 }
-                contentdiv.innerHTML += '<p id="timer">30</p>';
-                intvl = setInterval(function(){
-                  $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
-                },1000);
               }
+              contentdiv.innerHTML += '<br><p id="timer">30</p>';
+              intvl = setInterval(function(){
+                $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
+              },1000);
+
             });
           });
         });
