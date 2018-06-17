@@ -38,6 +38,7 @@ h1{
     background-color: #a34653;
     //background-color: #bc6974;
     color: #ffc9db;
+    cursor: pointer;
 }
 
 input{
