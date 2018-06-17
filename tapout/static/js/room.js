@@ -8,6 +8,7 @@ var userbox = $('#userbox')[0];
 var leavebutton = $('#leave')[0];
 var startbutton = $('#start')[0];
 var currentUsers = db.ref('/rooms/' + roomId).child('currentUsers');
+var intvl;
 var shuffle = function(a) {
     var j, x, i;
     for (i = a.length - 1; i > 0; i--) {
@@ -95,7 +96,7 @@ firebase.auth().onAuthStateChanged(function(user){
 `;
       var songbox = $('#songname')[0];
       var pickbutton = $('#picked')[0];
-      setInterval(function(){
+      intvl = setInterval(function(){
         $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
       },1000);
       songbox.addEventListener('keydown', function(e){
@@ -135,6 +136,7 @@ firebase.auth().onAuthStateChanged(function(user){
       });
     }
     if(snapshot.val()== 'tapping'){
+      clearInterval(intvl);
       contentdiv.innerHTML = '';
       $.ajax({
         type: "POST",
@@ -142,7 +144,7 @@ firebase.auth().onAuthStateChanged(function(user){
         data: {},
         success: function(d) {
           contentdiv.innerHTML += (d + '<p id="timer">20</p>');
-          setInterval(function(){
+          intvl = setInterval(function(){
             $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
           },1000);
           console.log(timekeeper);
@@ -193,6 +195,7 @@ firebase.auth().onAuthStateChanged(function(user){
     }
     if(snapshot.val() == 'guessing'){
       /* GUESSING CODE HERE */
+      clearInterval(intvl);
       contentdiv.innerHTML = `
 <h1 id="nameheader"></h1>
 <h3>Listen closely!</h3>
@@ -254,9 +257,10 @@ firebase.auth().onAuthStateChanged(function(user){
               console.log('name of currentuser: ' + currentname);
               var header = $('#nameheader')[0];
               var buttonsdiv = $('#buttons')[0];
+              clearInterval(intvl);
               buttonsdiv.innerHTML = '';
               header.innerHTML = currentname + "'s song tapped out!";
-              setInterval(function(){
+              intvl = setInterval(function(){
                 $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
               },1000);
               console.log('constructing buttons...');
