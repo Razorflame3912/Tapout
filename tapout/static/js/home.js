@@ -91,6 +91,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       db.ref('/rooms/' + code).once('value').then(function(roomval){
         if(roomval.val() == null){
           console.log('room does not exist');
+          $('#error')[0].innerHTML = 'Room does not exist.';
           join = false;
           firebase.auth().currentUser.delete().then(function() {
             // User deleted.
@@ -101,6 +102,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         }
         else if(roomval.val()['state'] == 'started'){
           console.log('room has already started game');
+          $('#error')[0].innerHTML = 'Room has already started a game.';
           join = false;
           firebase.auth().currentUser.delete().then(function() {
             // User deleted.
