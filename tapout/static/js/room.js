@@ -292,7 +292,7 @@ firebase.auth().onAuthStateChanged(function(user){
                 console.log(songdic);
                 var answer = document.createElement('button');
                 answer.className = "btn answer-choice";
-                answer.innerHTML = songdic[usersnap.val()]['title'].toLowerCase();
+                  answer.innerHTML = sanitize(songdic[usersnap.val()]['title'].toLowerCase());
                 answer.id = usersnap.val();
                 var j;
                 for(var x in songdic){
@@ -422,7 +422,7 @@ firebase.auth().onAuthStateChanged(function(user){
           for(var l = 0;l<ranklist.length;l++){
             var rankdiv = document.createElement('div');
             var namediv = document.createElement('div');
-            namediv.innerHTML = namelist[l];
+              namediv.innerHTML = sanitize(namelist[l]);
             var scorediv = document.createElement('div');
             scorediv.innerHTML = scorelist[l];
             rankdiv.appendChild(namediv);
