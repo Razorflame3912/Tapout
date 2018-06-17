@@ -44,7 +44,7 @@ var gameover = function() {
 };
 
 /*tapper.addEventListener("click", buttonTapped);
-$("body")[0].addEventListener("keyup", buttonTapWrap);*/
+ $("body")[0].addEventListener("keyup", buttonTapWrap);*/
 
 
 var audioType = "drum";
@@ -52,31 +52,31 @@ var audioType = "drum";
 //var audioType = "guitar";
 
 if(audioType == "drum"){
-    var audio = new Audio("static/audio/drum.wav");
-    audio.volume = 0.5;
-    var startTim = 0;
-    var timeInt = 0.1;
+  var audio = new Audio("static/audio/drum.wav");
+  audio.volume = 0.5;
+  var startTim = 0;
+  var timeInt = 0.1;
 }
-if(audioType == "piano"){
-    var audio = new Audio("static/audio/piano.mp3");
-    var startTim = 0;
-    var timeInt = 1;
+else if(audioType == "piano"){
+  var audio = new Audio("static/audio/piano.mp3");
+  var startTim = 0;
+  var timeInt = 1;
 }
-if(audioType == "guitar"){
-    var audio = new Audio("static/audio/guitar.wav");
-    var startTim = 0.4;
-    var timeInt = 0.625;
+else if(audioType == "guitar"){
+  var audio = new Audio("static/audio/guitar.wav");
+  var startTim = 0.4;
+  var timeInt = 0.625;
 }
 
 
 var playOnce = function(){
-    audio.currentTime = startTim;
-    audio.play();
-    
-    int = setInterval(function() {
-        if (audio.currentTime > timeInt) {
-	    audio.pause();
-	    clearInterval(int);
-        }
-    }, 10);
-} 
+  audio.currentTime = startTim;
+  audio.play();
+
+  int = setInterval(function() {
+    if (audio.currentTime > timeInt) {
+      audio.pause();
+      clearInterval(int);
+    }
+  }, 10);
+};
