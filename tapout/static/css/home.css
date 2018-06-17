@@ -1,4 +1,4 @@
-input {
+input, .btn {
     width: 60vw;
     min-width: 610px;
     height: 9vh;
