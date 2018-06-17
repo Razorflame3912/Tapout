@@ -199,7 +199,7 @@ firebase.auth().onAuthStateChanged(function(user){
 <div id="buttons">
 
 </div>
-<p id="timer">20</p>
+<p id="timer">30</p>
 
 
 `;
