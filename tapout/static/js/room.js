@@ -72,7 +72,7 @@ firebase.auth().onAuthStateChanged(function(user){
       });
       contentdiv.innerHTML = '';
       contentdiv.innerHTML = `
-<h1>Type in the song you will Tap Out!</h1>
+<h1>Type in the song you will Tap That Ass!</h1>
 <h2>Include the song name and author(If there is one)!</h2>
 <input id="songname" type="text" placeholder="Ex: 'Sugar' by Maroon 5">
 <button id="picked" class="btn">Submit!</button>
