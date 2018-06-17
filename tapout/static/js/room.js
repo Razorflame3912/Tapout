@@ -304,8 +304,51 @@ firebase.auth().onAuthStateChanged(function(user){
 
     }
 
-    /*if(snapshot.val() == 'over')
-      document.location.pathname = '/sakljfdls';*/
+    if(snapshot.val() == 'over'){
+      contentdiv.innerHTML = `
+<h1>Final Scores!</h1>
+<h3>Listen closely!</h3>
+<div id="scores">
+
+</div>
+<button id="leave">Back to Homepage</button>
+`;
+      roomRef.child('scores').orderByValue().once('value').then(function(data){
+        var ranklist = [];
+        var scorelist = [];
+        data.forEach(function(data) {
+          ranklist.push(data.key);
+          scorelist.push(data.val());
+        });
+        ranklist.reverse();
+        scorelist.reverse();
+        var namelist = [];
+        db.ref('/users').once('value').then(function(users){
+          for(i in ranklist){
+            namelist.push(users.val()[ranklist[i]]['name']);
+          }
+          for(l = 0;l<ranklist.length;l++){
+            var rankdiv = document.createElement('div');
+            var namediv = document.createElement('div');
+            namediv.innerHTML = namelist[l];
+            var scorediv = document.createElement('div');
+            scorediv.innerHTML = scorelist[l];
+            rankdiv.appendChild(namediv);
+            rankdiv.appendChild(scorediv);
+            $('#scores')[0].appendChild(rankdiv);
+          }
+          $('#leave')[0].addEventListener('click',function(){
+            document.location.pathname = '/';
+          });
+        });
+      });
+    }
+
+
+
+
+
+
   });
 
 });
