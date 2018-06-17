@@ -1,5 +1,6 @@
 #tapper {
     width: 70vw;
+    min-width: 600px;
     height: 15vh;
     background-color: #a34653;
     padding: 15px 25px;
@@ -17,4 +18,12 @@
     background-color: #992333;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
+}
+
+
+.answer-choice {
+    width: 70vw;
+    min-width: 600px;
+    height: 7vh;
+    font-size: 5vh;
 }
