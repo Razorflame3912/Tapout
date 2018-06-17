@@ -11,14 +11,14 @@ var start;
 var currentUsers = db.ref('/rooms/' + roomId).child('currentUsers');
 var intvl;
 var shuffle = function(a) {
-    var j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = a[i];
-        a[i] = a[j];
-        a[j] = x;
-    }
-    return a;
+  var j, x, i;
+  for (i = a.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1));
+    x = a[i];
+    a[i] = a[j];
+    a[j] = x;
+  }
+  return a;
 };
 var decoys = [
   'By My Side', 'Treat You Better', "Stitches", "Despacito", "Baby",'Hey Jude', 'Take on Me by a-ha', 'The Star Spangled Banner', 'Star Wars Theme',"Beethoven's 5th Symphony", 'Ode to Joy', 'Thriller by Michael Jackson', "Say You Won't Let Go by James Arthur", "Can I Be Him by James Arthur", 'Love Runs Out by OneRepublic', 'Viva La Vida','Pokemon Theme Song', 'Mario Theme', 'Kirby Theme', 'The Duck Song', 'Demons by Imagine Dragons',"It's Not Like I Like You by Static-P", "7 Years","Wavin' Flag by K'NAAN","Waka Waka by Shakira","America the Beautiful","God Bless America","USSR National Anthem","Sorry by Justin Bieber","Love Yourself","Back to December by Taylor Swift","Shake it Off","Firework","Dynamite by Taio Cruz","500 Miles by The Proclaimers","A Thousand Miles by Vanessa Carlton","Party in the USA", "Stay With Me","I Miss the Misery by Halestorm","Drive By by Train","Hey Soul Sister by Train","Marry Me by Train","Happy Birthday","Jingle Bells","Twinkle Twinkle Little Star", "Mary had a Little Lamb","Row, Row, Row Your Boat","What Makes You Beautiful by One Direction","So What by PINK","I Want It That Way by The Backstreet Boys", "Cheerleader by Ne-Yo","Happy by Pharrell Williams","Pompeii by Bastille","All Star","Mustache by Harry Harvey","Ugandan National Anthem","I Told You So by Kelly Macks","Some Nighs by fun","The Nights by Avicii","Gangnam Style","Pomp & Circumstance","The Wedding Song","Kids in the Dark by All Time Low","11 Blocks by Wrabel","You Fooled by Divided by Friday","Centuries by Fallout Boy","Sugar by Maroon 5","Payphone", "Moves Like Jagger", "Stressed Out by Twenty One Pilots", "Hello by Adele", "Imperial March", "Undertale Theme","Wii Music","Spiderman Theme Song","House of Gold by Twenty One Pilots","Bullet by Hollywood Undead","Fireflies", "I Really Like You by Carly Rae Jaepsen","Arthur Theme Song","Sesame Street Theme Song","Gravity Falls Theme Song","Ride of the Valkyries","1812 Overture","Pon Pon Pon","Cotton Eye Joe","Never Gonna Give You Up","Da Ba Dee","Perfect by Ed Sheeran","Castle on the Hill by Ed Sheeran","Photograph by Ed Sheeran","Thinking Out Loud by Ed Sheeran","Hotline Bling","Wake Me Up by Avicii","Down by J-Shawn", "La Cucaracha", "Indiana Jones theme song", "Counting Stars", "Hallelujah","the coconut song", "let it go", "can you feel the love tonight by elton john", "don't stop believing", "livin' on a prayer", "eye of the tiger", "Get lucky by Daft Punk","bohemian rhapsody","the final countdown","we are the champions by queen","bad by michael jackson", "can't help falling in love", "the alphabet song", "dj got us falling in love again", "glad you came", "bad romance by lady gaga", "born this way by lady gaga", "the macarena", "amazing grace", "applause", "best day ever by spongebob", "the fun song", "i can show you the world by aladdin", "under the sea", "six trillion years and overnight story", "you've got a friend in me"
@@ -26,14 +26,16 @@ var decoys = [
 
 var badchars = "<>/\\";
 var sanitize = function(input){
-    //var temp = input;
-    if(input == null || input.length == 0 || input == " "){
-        return "null";
-    }
-    for(var c in badchars){
+  //var temp = input;
+  if(input == null || input.length == 0 || input == " "){
+    return "null";
+  }
+  for(var c in badchars){
+    while (input.indexOf(badchars[c]) != -1) {
       input = input.replace(badchars[c], '');
     }
-    return input;
+  }
+  return input;
 };
 
 roomRef.child('state').once('value').then(function(stateval){
@@ -58,28 +60,28 @@ firebase.auth().onAuthStateChanged(function(user){
   });
 
   setTimeout(function(){
-  currentUsers.on('value', function(snapshot) {
-    console.log("SOMETHING CHANGED");
-    var users = snapshot.val();
-    console.log(users);
-    var i;
-    console.log('setting innerhtml to nothing');
-    userbox.innerHTML = '';
-    var nameRef = db.ref('users/');
-    var userdict;
-    nameRef.once('value').then(function(userSnap){
-      userdict = userSnap.val();
-      for(i in users){
-        console.log(i);
-        var username = '';
-        username = userdict[users[i]]['name'];
-        console.log(username);
-        var userdiv = document.createElement('div');
-        userdiv.innerHTML = sanitize(username);
-        userbox.appendChild(userdiv);
-      }
+    currentUsers.on('value', function(snapshot) {
+      console.log("SOMETHING CHANGED");
+      var users = snapshot.val();
+      console.log(users);
+      var i;
+      console.log('setting innerhtml to nothing');
+      userbox.innerHTML = '';
+      var nameRef = db.ref('users/');
+      var userdict;
+      nameRef.once('value').then(function(userSnap){
+        userdict = userSnap.val();
+        for(i in users){
+          console.log(i);
+          var username = '';
+          username = userdict[users[i]]['name'];
+          console.log(username);
+          var userdiv = document.createElement('div');
+          userdiv.innerHTML = sanitize(username);
+          userbox.appendChild(userdiv);
+        }
+      });
     });
-  });
   },1000);
 
   var timekeeper;
@@ -137,16 +139,16 @@ firebase.auth().onAuthStateChanged(function(user){
 `;
       });
       /*pickbutton.addEventListener('touchend', function(){
-        if(songbox.value != ''){
-          roomRef.child('/songs/' + firebase.auth().currentUser.uid).update({title: songbox.value});
-        }
-        songbox.remove();
-        pickbutton.remove();
-        contentdiv.innerHTML += `
-<p><i>Submitted your choice of song!</i></p>
+       if(songbox.value != ''){
+       roomRef.child('/songs/' + firebase.auth().currentUser.uid).update({title: songbox.value});
+       }
+       songbox.remove();
+       pickbutton.remove();
+       contentdiv.innerHTML += `
+       <p><i>Submitted your choice of song!</i></p>
 
-`;
-      });*/
+       `;
+       });*/
     }
     if(snapshot.val()== 'tapping'){
       clearInterval(intvl);
@@ -233,14 +235,14 @@ firebase.auth().onAuthStateChanged(function(user){
           var i;
           var count = 0;
           /*for(i in songs){
-            console.log(count);
-            console.log(i);
-            setTimeout(function(){
-              console.log('transferring to ' + i);
-              roomRef.update({currentSong: i });
-            },count*roundlength);
-            count++;
-          }*/
+           console.log(count);
+           console.log(i);
+           setTimeout(function(){
+           console.log('transferring to ' + i);
+           roomRef.update({currentSong: i });
+           },count*roundlength);
+           count++;
+           }*/
           var li = [];
           for(i in songs){
             li.push(i);
@@ -289,7 +291,7 @@ firebase.auth().onAuthStateChanged(function(user){
                 console.log(songdic);
                 var answer = document.createElement('button');
                 answer.className = "btn answer-choice";
-                  answer.innerHTML = sanitize(songdic[usersnap.val()]['title'].toLowerCase());
+                answer.innerHTML = sanitize(songdic[usersnap.val()]['title'].toLowerCase());
                 answer.id = usersnap.val();
                 var j;
                 for(var x in songdic){
@@ -347,8 +349,8 @@ firebase.auth().onAuthStateChanged(function(user){
                             roomRef.child('scores').child(firebase.auth().currentUser.uid).set(snapscore);
                           });
                           /*scoredic[usersnap.val()] += 500;
-                          scoredic[myid] += 1000;
-                          roomRef.update({scores: scoredic});*/
+                           scoredic[myid] += 1000;
+                           roomRef.update({scores: scoredic});*/
                           thebutton.style.backgroundColor = "green";
                         }
                         else{
@@ -419,7 +421,7 @@ firebase.auth().onAuthStateChanged(function(user){
           for(var l = 0;l<ranklist.length;l++){
             var rankdiv = document.createElement('div');
             var namediv = document.createElement('div');
-              namediv.innerHTML = sanitize(namelist[l]);
+            namediv.innerHTML = sanitize(namelist[l]);
             var scorediv = document.createElement('div');
             scorediv.innerHTML = scorelist[l];
             rankdiv.appendChild(namediv);
@@ -471,8 +473,8 @@ leavebutton.addEventListener('click',function(){
 });
 
 /*leavebutton.addEventListener('touchend',function(){
-  document.location.pathname = '/';
-});*/
+ document.location.pathname = '/';
+ });*/
 
 startbutton.addEventListener('click', startGame);
 
