@@ -31,10 +31,7 @@ var sanitize = function(input){
         return "null";
     }
     for(var c in badchars){
-        if(input.includes(badchars[c])){
-            var ind = input.indexOf(badchars[c]);
-            input = input.slice(0, ind) + input.slice(ind+1, input.length);
-        }
+      input = input.replace(badchars[c], '');
     }
     return input;
 };
