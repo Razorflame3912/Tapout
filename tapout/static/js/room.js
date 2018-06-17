@@ -7,6 +7,7 @@ var contentdiv = $('#content')[0];
 var userbox = $('#userbox')[0];
 var leavebutton = $('#leave')[0];
 var startbutton = $('#start')[0];
+var start;
 var currentUsers = db.ref('/rooms/' + roomId).child('currentUsers');
 var intvl;
 var shuffle = function(a) {
@@ -259,6 +260,7 @@ firebase.auth().onAuthStateChanged(function(user){
               console.log('constructing buttons...');
               console.log(timetable);
               playSeries(timetable);
+              start = Date().now();
               var clicked = false;
               if(firebase.auth().currentUser.uid != usersnap.val()){
 
@@ -312,13 +314,14 @@ firebase.auth().onAuthStateChanged(function(user){
                         console.log(myid);
                         console.log(usersnap.val());
                         if(myid == usersnap.val()){
+                          var now = Date().now();
                           roomRef.child('scores').child(usersnap.val()).once('value').then(function(snap){
                             var snapscore = snap.val()+500;
                             roomRef.child('scores').child(usersnap.val()).set(snapscore);
                           });
                             roomRef.child('scores').child(myid).once('value').then(function(snap){
-                            var snapscore = snap.val()+1000;
-                              roomRef.child('scores').child(myid.set(snapscore));
+                              var snapscore = snap.val()+(1000 - 15*(Math.floor((now-start)/1000)));
+                              roomRef.child('scores').child(myid).set(snapscore));
                           });
                           /*scoredic[usersnap.val()] += 500;
                           scoredic[myid] += 1000;
