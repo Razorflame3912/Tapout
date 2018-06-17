@@ -387,6 +387,7 @@ firebase.auth().onAuthStateChanged(function(user){
 <div id="scores">
 
 </div>
+<br>
 <button id="leave" class="btn button">Back to Homepage</button>
 `;
       roomRef.child('scores').orderByValue().once('value').then(function(data){
