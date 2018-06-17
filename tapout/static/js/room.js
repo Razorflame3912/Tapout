@@ -72,7 +72,7 @@ firebase.auth().onAuthStateChanged(function(user){
       });
       contentdiv.innerHTML = '';
       contentdiv.innerHTML = `
-<h1>Type in the song you will Tap That Ass!</h1>
+<h1>Type in the song you will Tap Out!</h1>
 <h2>Include the song name and author(If there is one)!</h2>
 <input id="songname" type="text" placeholder="Ex: 'Sugar' by Maroon 5">
 <button id="picked" class="btn">Submit!</button>
@@ -157,7 +157,10 @@ firebase.auth().onAuthStateChanged(function(user){
           var i;
           var count = 0;
           for(i in songs){
+            console.log(count);
+            console.log(i);
             setTimeout(function(){
+              console.log('transferring to ' + i);
               roomRef.update({currentSong: i });
             },count*roundlength);
             count++;
@@ -200,8 +203,8 @@ firebase.auth().onAuthStateChanged(function(user){
                   console.log('songname: ' + songname);
                   //var buttondiv = document.createElement('div');
                   var button = document.createElement('button');
-		    button.className = "btn";		    
-		    button.innerHTML = songname;
+                  button.className = "btn";
+                  button.innerHTML = songname;
                   button.id = i;
                   button.addEventListener('click', function(){
                     console.log(this);
@@ -218,11 +221,16 @@ firebase.auth().onAuthStateChanged(function(user){
                         scoredic[usersnap.val()] += 500;
                         scoredic[myid] += 1000;
                         roomRef.update({scores: scoredic});
-                        thebutton.style.color = "green";
+                        thebutton.style.backgroundColor = "green";
                       }
                       else{
-                        thebutton.style.color = "red";
+                        thebutton.style.backgroundColor = "red";
                       }
+
+                      //thebutton.style.backgroundColor = "green";
+                      var correcto = $('#' + usersnap.val())[0];
+                      correcto.style.backgroundColor = "green";
+
                     });
                   });
                   //buttondiv.appendChild(button);
