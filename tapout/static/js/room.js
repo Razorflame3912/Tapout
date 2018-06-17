@@ -283,9 +283,11 @@ firebase.auth().onAuthStateChanged(function(user){
                   answer.addEventListener('click', buttclick);
                   if(j==rand){
                     buttonsdiv.appendChild(answer);
+                    buttonsdiv.appendChild(document.createElement('br'));
                   }
                   //buttondiv.appendChild(button);
                   buttonsdiv.appendChild(button);
+                  buttonsdiv.appendChild(document.createElement('br'));
                 }
               }
             });
