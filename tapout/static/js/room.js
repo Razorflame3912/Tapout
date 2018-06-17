@@ -8,6 +8,19 @@ var userbox = $('#userbox')[0];
 var leavebutton = $('#leave')[0];
 var startbutton = $('#start')[0];
 var currentUsers = db.ref('/rooms/' + roomId).child('currentUsers');
+var shuffle = function(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+};
+var decoys = [
+  'By My Side by David Choi', 'Treat You Better by Shawn Mendes', "Stitches by Shawn Mendes", "Despacito by Luis Fonsi", "Baby by Justin Bieber",'Hey Jude by The Beatles', 'Take on Me by a-ha', 'The Star Spangled Banner', 'Star Wars Theme',"Beethoven's 5th Symphony", 'Ode to Joy by Beethoven', 'Thriller by Michael Jackson', "Say You Won't Let Go by James Arthur", "Can I Be Him by James Arthur", 'Love Runs Out by OneRepublic', 'Viva La Vida by Coldplay','Pokemon Theme Song', 'Mario Theme', 'Kirby Theme', 'The Duck Song', 'Demons by Imagine Dragons',"It's Not Like I Like You by Static-P", "7 Years by Lukas Graham","Wavin' Flag by K'NAAN","Waka Waka by Shakira","America the Beautiful","God Bless America","USSR National Anthem","Sorry by Justin Bieber","Love Yourself by Justin Bieber","Back to December by Taylor Swift","Shake it Off by Taylor Swift","Firework by Katy Perry","Dynamite by Taio Cruz","500 Miles by The Proclaimers","A Thousand Miles by Vanessa Carlton","Party by the USA by Miley Cyrus", "Stay With Me by Sam Smith","I Miss the Misery by Halestorm","Drive By by Train","Hey Soul Sister by Train","Marry Me by Train","Happy Birthday","Jingle Bells","Twinkle Twinkle Little Star", "Mary had a Little Lamb","Row, Row, Row Your Boat","What Makes You Beautiful by One Direction","So What by PINK","I Want It That Way by The Backstreet Boys", "Cheerleader by Ne-Yo","Happy by Pharrell Williams","Pompeii by Bastille","All Star by Smash Mouth","Mustache by Harry Harvey","Ugandan National Anthem","I Told You So by Kelly Macks","Some Nighs by fun","The Nights by Avicii","Gangnam Style by PSY","Pomp & Circumstance","The Wedding Song","Kids in the Dark by All Time Low","11 Blocks by Wrabel","You Fooled by Divided by Friday","Centuries by Fallout Boy","Sugar by Maroon 5","Payphone by Maroon 5", "Moves Like Jagger by Maroon 5", "Stressed Out by Twenty One Pilots", "Hello by Adele", "Imperial March", "Undertale Theme","Wii Music","Spiderman Theme Song","House of Gold by Twenty One Pilots","Bullet by Hollywood Undead","Fireflies by Owl City", "I Really Like You by Carly Rae Jaepsen","Arthur Theme Song","Sesame Street Theme Song","Gravity Falls Theme Song","Ride of the Valkyries","1812 Overture","Pon Pon Pon","Cotton Eye Joe","Never Gonna Give You Up by Rick Astley","Da Ba Dee","Perfect by Ed Sheeran","Castle on the Hill by Ed Sheeran","Photograph by Ed Sheeran","Thinking Out Loud by Ed Sheeran","Hotline Bling by Drake","Wake Me Up by Avicii","Down by J-Shawn"
+];
 
 roomRef.child('state').once('value').then(function(stateval){
   if(stateval.val() != "waiting"){
@@ -209,16 +222,33 @@ firebase.auth().onAuthStateChanged(function(user){
 
 
                 console.log(songdic);
-
-                for(i in songdic){
-                  var songname = songdic[i]['title'];
+                var answer = document.createElement('button');
+                answer.className = 'btn';
+                answer.innerHTML = songdic['usersnap.val()']['title'];
+                answer.id = usersnap.val();
+                var j;
+                for(x in songdic){
+                  if(x != usersnap.val()){
+                    decoys.push(songdic[x]['title']);
+                    shuffle(decoys);
+                  }
+                }
+                var rand = Math.floor(Math.random() * 5);
+                for(j=0; j<5; j++){
+                  var songname = decoys[0];
                   console.log('songname: ' + songname);
                   //var buttondiv = document.createElement('div');
                   var button = document.createElement('button');
                   button.className = "btn";
+                  var guys = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                  var buttid = '';
+                  for(t =0;t<28;t++){
+                    var selected = chars[Math.floor(Math.random() * chars.length)];
+                    buttid += selected;
+                  }
                   button.innerHTML = songname;
-                  button.id = i;
-                  button.addEventListener('click', function(){
+                  button.id = buttid;
+                  var buttclick = function(){
                     if(!clicked){
                       clicked = true;
                       console.log(this);
@@ -247,7 +277,12 @@ firebase.auth().onAuthStateChanged(function(user){
 
                       });
                     }
-                  });
+                  };
+                  button.addEventListener('click', buttclick);
+                  answer.addEventListener('click', buttclick);
+                  if(j==rand){
+                    buttonsdiv.appendChild(answer);
+                  }
                   //buttondiv.appendChild(button);
                   buttonsdiv.appendChild(button);
                 }
