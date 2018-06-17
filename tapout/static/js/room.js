@@ -141,7 +141,7 @@ firebase.auth().onAuthStateChanged(function(user){
         url: "/taphtml",
         data: {},
         success: function(d) {
-          document.body.innerHTML += '<p id="timer">20</p>';
+          contentdiv.innerHTML += (d + '<p id="timer">20</p>');
           setInterval(function(){
             $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
           },1000);
