@@ -1,4 +1,5 @@
 var namebar = $('#namebar')[0];
+var createbar = $('#namebar-create')[0];
 var codebar = $('#codebar')[0];
 var joinbutton = $('#joinbutton')[0];
 var createbutton = $('#createbutton')[0];
@@ -15,7 +16,6 @@ firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
     // Existing and future Auth states are now persisted in the current
     // session only. Closing the window would clear any existing state even
     // if a user forgets to sign out.
-    // ...
     // New sign-in will be persisted with session persistence.
   })
   .catch(function(error) {
@@ -27,14 +27,13 @@ firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
 var createRoom = function(){
   create = true;
   console.log('create room pressed.');
-  if(namebar.value != ''){
-    username = namebar.value;
+  if(createbar.value != ''){
+    username = createbar.value;
     firebase.auth().signInAnonymously().catch(function(error) {
       console.log('signing in');
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      // ...
     });
   }
 };
@@ -48,7 +47,6 @@ var joinRoom = function(){
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      // ...
     });
    }
 };
@@ -70,10 +68,12 @@ firebase.auth().onAuthStateChanged(function(user) {
     };
     db.ref("/users").child(firebase.auth().currentUser.uid).set(data);
 
+    var code;
+
     if(create){
-      var code = '';
+      code = '';
       var chars = '1234567890';
-      for(i=0;i<4;i++){
+      for(var i=0; i<4; i++){
         var selected = chars[Math.floor(Math.random() * chars.length)];
         code += selected;
       }
@@ -87,7 +87,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 
     if(join){
-      var code = codebar.value;
+      code = codebar.value;
       db.ref('/rooms/' + code).once('value').then(function(roomval){
         if(roomval.val() == null){
           console.log('room does not exist');
