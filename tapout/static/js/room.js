@@ -95,6 +95,9 @@ firebase.auth().onAuthStateChanged(function(user){
 `;
       var songbox = $('#songname')[0];
       var pickbutton = $('#picked')[0];
+      setInterval(function(){
+        $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
+      },1000);
       songbox.addEventListener('keydown', function(e){
         if(e.key=="Enter"){
           if(songbox.value != ''){
@@ -106,9 +109,6 @@ firebase.auth().onAuthStateChanged(function(user){
 <p><i>Submitted your choice of song!</i></p>
 
 `;
-          setInterval(function(){
-            $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
-          },1000);
         }
       });
       pickbutton.addEventListener('click', function(){
@@ -141,6 +141,10 @@ firebase.auth().onAuthStateChanged(function(user){
         url: "/taphtml",
         data: {},
         success: function(d) {
+          document.body.innerHTML += '<p id="timer">20</p>';
+          setInterval(function(){
+            $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
+          },1000);
           console.log(timekeeper);
           console.log(firebase.auth().currentUser.uid);
           if(firebase.auth().currentUser.uid == timekeeper){
@@ -156,7 +160,7 @@ firebase.auth().onAuthStateChanged(function(user){
                 }
                 roomRef.child('scores').set(scoredic);
               });
-            },10500);
+            },20000);
           }
 
 
@@ -195,6 +199,7 @@ firebase.auth().onAuthStateChanged(function(user){
 <div id="buttons">
 
 </div>
+<p id="timer">20</p>
 
 
 `;
@@ -251,6 +256,9 @@ firebase.auth().onAuthStateChanged(function(user){
               var buttonsdiv = $('#buttons')[0];
               buttonsdiv.innerHTML = '';
               header.innerHTML = currentname + "'s song tapped out!";
+              setInterval(function(){
+                $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
+              },1000);
               console.log('constructing buttons...');
               console.log(timetable);
               playSeries(timetable);
