@@ -298,6 +298,8 @@ firebase.auth().onAuthStateChanged(function(user){
                   button.id = buttid;
                   button.className = "btn answer-choice";
                   var buttclick = function(){
+                    console.log('he pushed my buttons');
+                    console.log(clicked);
                     if(!clicked){
                       clicked = true;
                       console.log(this);
