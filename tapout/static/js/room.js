@@ -83,7 +83,6 @@ firebase.auth().onAuthStateChanged(function(user){
           },30000);
         }
       });
-      $('#dropme')[0].remove();
       contentdiv.innerHTML = '';
       contentdiv.innerHTML = `
 <h1>Type in the song you will Tap Out!</h1>
