@@ -80,15 +80,18 @@ firebase.auth().onAuthStateChanged(function(user){
           setTimeout(function(){
             console.log("time's up! updating");
             roomRef.update({state: 'tapping'});
-          },30000);
+          },20000);
         }
       });
       contentdiv.innerHTML = '';
       contentdiv.innerHTML = `
 <h1>Type in the song you will Tap Out!</h1>
-<h2>Include the song name and author(If there is one)!</h2>
+<h4>Include the song name and author(If there is one)!</h4>
+<div id="form">
 <input id="songname" type="text" placeholder="Ex: 'Sugar' by Maroon 5">
 <button id="picked" class="btn">Submit!</button>
+</div>
+<p id="timer">20</p>
 `;
       var songbox = $('#songname')[0];
       var pickbutton = $('#picked')[0];
@@ -99,10 +102,13 @@ firebase.auth().onAuthStateChanged(function(user){
           }
           songbox.remove();
           pickbutton.remove();
-          contentdiv.innerHTML += `
+          $('#form')[0].innerHTML = `
 <p><i>Submitted your choice of song!</i></p>
 
 `;
+          setInterval(function(){
+            $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
+          },1000);
         }
       });
       pickbutton.addEventListener('click', function(){
