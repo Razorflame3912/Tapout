@@ -143,10 +143,6 @@ firebase.auth().onAuthStateChanged(function(user){
         url: "/taphtml",
         data: {},
         success: function(d) {
-          contentdiv.innerHTML += (d + '<p id="timer">20</p>');
-          intvl = setInterval(function(){
-            $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
-          },1000);
           console.log(timekeeper);
           console.log(firebase.auth().currentUser.uid);
           if(firebase.auth().currentUser.uid == timekeeper){
@@ -169,7 +165,10 @@ firebase.auth().onAuthStateChanged(function(user){
 
 
 
-          contentdiv.innerHTML = d;
+          contentdiv.innerHTML = (d + '<p id="timer">20</p>');
+          intvl = setInterval(function(){
+            $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
+          },1000);
           tapper = document.getElementById("tapper");
           taplist = [];
           startTime = Date.now();
@@ -202,8 +201,6 @@ firebase.auth().onAuthStateChanged(function(user){
 <div id="buttons">
 
 </div>
-<p id="timer">30</p>
-
 
 `;
       if(firebase.auth().currentUser.uid == timekeeper){
@@ -260,9 +257,6 @@ firebase.auth().onAuthStateChanged(function(user){
               clearInterval(intvl);
               buttonsdiv.innerHTML = '';
               header.innerHTML = currentname + "'s song tapped out!";
-              intvl = setInterval(function(){
-                $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
-              },1000);
               console.log('constructing buttons...');
               console.log(timetable);
               playSeries(timetable);
@@ -345,6 +339,10 @@ firebase.auth().onAuthStateChanged(function(user){
                   buttonsdiv.appendChild(button);
                   buttonsdiv.appendChild(document.createElement('br'));
                 }
+                contentdiv.innerHTML += '<p id="timer">30</p>';
+                intvl = setInterval(function(){
+                  $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
+                },1000);
               }
             });
           });
