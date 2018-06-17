@@ -1,8 +1,8 @@
-var namebar = document.getElementById("namebar");
-var createbar = document.getElementById("namebar-create");
-var codebar = document.getElementById("codebar");
-var joinbutton = document.getElementById("joinbutton");
-var createbutton = document.getElementById("createbutton");
+var namebar = $("#namebar");
+var createbar = $("#namebar-create");
+var codebar = $("#codebar");
+var joinbutton = $("#joinbutton");
+var createbutton = $("#createbutton");
 var username = '';
 var create = false;
 var join = false;
@@ -125,14 +125,12 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 createbutton.addEventListener('click',createRoom);
-createbutton.addEventListener('touchend',createRoom);
 createbar.addEventListener('keydown',function(e){
   if(e.key == 'Enter'){
     createRoom();
   }
 });
 joinbutton.addEventListener('click',joinRoom);
-joinbutton.addEventListener('touchend',joinRoom);
 codebar.addEventListener('keydown',function(e){
   if(e.key == 'Enter'){
     joinRoom();

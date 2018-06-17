@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css' ) }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css' ) }}">
-
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/tapout.png' ) }}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
     <title>{% block title %}{% endblock %}</title>
@@ -23,7 +23,7 @@
     {% endfor %}
     {% endwith %}
     <div class="body-container">
-    {% block body %}{% endblock %}
+      {% block body %}{% endblock %}
     </div>
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/firebase-app.js' ) }}"></script>
