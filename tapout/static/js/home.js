@@ -26,8 +26,7 @@ firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
 
 var createRoom = function(){
   create = true;
-  alert("HI!");
-  console.log('create room pressed.');
+  //console.log('create room pressed.');
   if(createbar.value != ''){
     username = createbar.value;
     firebase.auth().signInAnonymously().catch(function(error) {
