@@ -201,7 +201,6 @@ firebase.auth().onAuthStateChanged(function(user){
 <div id="buttons">
 
 </div>
-
 `;
       if(firebase.auth().currentUser.uid == timekeeper){
         console.log('DAT ME!');
@@ -342,7 +341,11 @@ firebase.auth().onAuthStateChanged(function(user){
                   buttonsdiv.appendChild(document.createElement('br'));
                 }
               }
-              buttonsdiv.innerHTML += '<br><p id="timer">30</p>';
+              buttonsdiv.appendChild(document.createElement('br'));
+              var timer = document.createElement('p');
+              timer.id = 'timer';
+              timer.innerHTML = 30;
+              buttonsdiv.appendChild(timer);
               intvl = setInterval(function(){
                 $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
               },1000);
