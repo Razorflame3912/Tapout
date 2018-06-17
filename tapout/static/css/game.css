@@ -26,4 +26,13 @@
     min-width: 600px;
     height: 7vh;
     font-size: 5vh;
+    margin: 1px;
+}
+
+#songname, #picked {
+    width: 70vw;
+    min-width: 600px;
+    height: 7vh;
+    font-size: 5vh;
+    margin: 1px;
 }
