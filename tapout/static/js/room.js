@@ -312,9 +312,17 @@ firebase.auth().onAuthStateChanged(function(user){
                         console.log(myid);
                         console.log(usersnap.val());
                         if(myid == usersnap.val()){
-                          scoredic[usersnap.val()] += 500;
+                          roomRef.child('scores').child(usersnap.val()).once('value').then(function(snap){
+                            var snapscore = snap.val()+500;
+                            roomRef.child('scores').child(usersnap.val()).set(snapscore);
+                          });
+                            roomRef.child('scores').child(myid).once('value').then(function(snap){
+                            var snapscore = snap.val()+1000;
+                              roomRef.child('scores').child(myid.set(snapscore));
+                          });
+                          /*scoredic[usersnap.val()] += 500;
                           scoredic[myid] += 1000;
-                          roomRef.update({scores: scoredic});
+                          roomRef.update({scores: scoredic});*/
                           thebutton.style.backgroundColor = "green";
                         }
                         else{
