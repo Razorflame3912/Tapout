@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
-{% block css %} <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/game.css' ) }}"> {% endblock %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/game.css' ) }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lobby.css' ) }}">
+{% endblock %}
 
 {% block title %}Tapout!{% endblock %}
 
 {% block body %}
-<div id="content">
+<div id="content" class="backing">
   <h1>Welcome to Tapout!</h1>
   <h2 id="codeh1">Room Code:</h2>
 

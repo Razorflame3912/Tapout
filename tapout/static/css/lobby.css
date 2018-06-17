@@ -1,0 +1,13 @@
+#leave, #start {
+    height: 8vh;
+    width: 20vw;
+    min-width: 600px;
+}
+
+.backing {
+    rgba(255, 255, 255, .1);
+    padding: 15px;
+    width: 40vw;
+    min-width: 640px;
+    margin: auto;
+}

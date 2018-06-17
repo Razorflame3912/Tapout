@@ -1,11 +1,14 @@
 input {
-    width: 40vw;
-    min-width: 600px;
+    width: 60vw;
+    min-width: 610px;
+    height: 10vh;
+    font-size: 8vh;
+    text-align: center;
 }
 
 .backing {
-    padding: 5px;
-    width: 42vw;
-    min-width: 610px;
-
+    rgba(255, 255, 255, .1);
+    padding: 15px;
+    width: 62vw;
+    min-width: 640px;
 }
