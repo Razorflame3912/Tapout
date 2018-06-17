@@ -199,6 +199,7 @@ firebase.auth().onAuthStateChanged(function(user){
               console.log('name of currentuser: ' + currentname);
               var header = $('#nameheader')[0];
               var buttonsdiv = $('#buttons')[0];
+              buttonsdiv.innerHTML = '';
               header.innerHTML = currentname + "'s song tapped out!";
               console.log('constructing buttons...');
               console.log(timetable);
