@@ -9,22 +9,28 @@ body {
 }
 
 h1{
-    font-weight:bold;
+    font-weight: bold;
     font-size: 300%;
 }
 .body-container {
-    margin: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
 }
 
 .page-header {
     height: 8vh;
+    min-height: 80px;
     background-color: #a34653;
     color: #ffc9db;
     margin: 15px;
 }
 
 .page-header h1 {
-    font-size: 6vh;
+    font-size: max(60px, 6vh);
+}
+
+.page-header a {
+    color: #ffc9db;
 }
 
 .btn {
