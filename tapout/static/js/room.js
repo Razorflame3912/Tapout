@@ -319,10 +319,11 @@ firebase.auth().onAuthStateChanged(function(user){
                             var snapscore = snap.val()+500;
                             roomRef.child('scores').child(usersnap.val()).set(snapscore);
                           });
-                          roomRef.child('scores').child(myid).once('value').then(function(snap){
+                          roomRef.child('scores').child(firebase.auth().currentUser.uid).once('value').then(function(snap){
                             console.log(now-start);
-                              var snapscore = snap.val()+(1000 - (15*(Math.floor((now-start)/1000))));
-                              roomRef.child('scores').child(myid).set(snapscore);
+                            var snapscore = snap.val()+(1000 - (15*(Math.floor((now-start)/1000))));
+                            console.log(snapscore);
+                            roomRef.child('scores').child(firebase.auth().currentUser.uid).set(snapscore);
                           });
                           /*scoredic[usersnap.val()] += 500;
                           scoredic[myid] += 1000;
