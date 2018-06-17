@@ -1,11 +1,11 @@
 input {
-    width: 25vw;
-    min-width: 300px;
+    width: 40vw;
+    min-width: 600px;
 }
 
-.needs-more-backing {
-    background-color: rgba(255, 255, 255, .1);
+.backing {
     padding: 5px;
-    width: 30vw;
-    min-width: 300px;
+    width: 42vw;
+    min-width: 610px;
+
 }
