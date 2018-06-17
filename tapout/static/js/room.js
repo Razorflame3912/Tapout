@@ -224,7 +224,7 @@ firebase.auth().onAuthStateChanged(function(user){
                 console.log(songdic);
                 var answer = document.createElement('button');
                 answer.className = 'btn';
-                answer.innerHTML = songdic['usersnap.val()']['title'];
+                answer.innerHTML = songdic[usersnap.val()]['title'];
                 answer.id = usersnap.val();
                 var j;
                 for(x in songdic){
