@@ -1,0 +1,11 @@
+input {
+    width: 25vw;
+    min-width: 300px;
+}
+
+.needs-more-backing {
+    background-color: rgba(255, 255, 255, .1);
+    padding: 5px;
+    width: 30vw;
+    min-width: 300px;
+}
