@@ -4,8 +4,11 @@
     min-width: 600px;
 }
 
-.backing {
+.backing-color {
     rgba(255, 255, 255, .1);
+}
+
+.backing {
     padding: 15px;
     width: 40vw;
     min-width: 640px;
