@@ -54,8 +54,8 @@ var joinRoom = function(){
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     if(!create && !join){
-      firebase.auth().signOut().then(function() {
-        // Sign-out successful.
+      firebase.auth().currentUser.delete().then(function() {
+        // User deleted.
       }).catch(function(error) {
         // An error happened.
       });
@@ -92,20 +92,22 @@ firebase.auth().onAuthStateChanged(function(user) {
         if(roomval.val() == null){
           console.log('room does not exist');
           join = false;
-          firebase.auth().signOut().then(function() {
-            // Sign-out successful.
+          firebase.auth().currentUser.delete().then(function() {
+            // User deleted.
           }).catch(function(error) {
             // An error happened.
           });
+
         }
         else if(roomval.val()['state'] == 'started'){
           console.log('room has already started game');
           join = false;
-          firebase.auth().signOut().then(function() {
-            // Sign-out successful.
+          firebase.auth().currentUser.delete().then(function() {
+            // User deleted.
           }).catch(function(error) {
             // An error happened.
           });
+
         }
         else{
           document.location.pathname = '/room/' + code;
@@ -121,4 +123,14 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 createbutton.addEventListener('click',createRoom);
+createbar.addEventListener('keydown',function(e){
+  if(e.key == 'Enter'){
+    createRoom();
+  }
+});
 joinbutton.addEventListener('click',joinRoom);
+codebar.addEventListener('keydown',function(e){
+  if(e.key == 'Enter'){
+    joinRoom();
+  }
+});

@@ -92,6 +92,19 @@ firebase.auth().onAuthStateChanged(function(user){
 `;
       var songbox = $('#songname')[0];
       var pickbutton = $('#picked')[0];
+      songbox.addEventListener('keydown', function(e){
+        if(e.key=="Enter"){
+          if(songbox.value != ''){
+            roomRef.child('/songs/' + firebase.auth().currentUser.uid).update({title: songbox.value});
+          }
+          songbox.remove();
+          pickbutton.remove();
+          contentdiv.innerHTML += `
+<p><i>Submitted your choice of song!</i></p>
+
+`;
+        }
+      });
       pickbutton.addEventListener('click', function(){
         if(songbox.value != ''){
           roomRef.child('/songs/' + firebase.auth().currentUser.uid).update({title: songbox.value});
@@ -374,8 +387,8 @@ var leaveRoom = function() {
       roomRef.update({currentUsers : users});
 
     }
-    firebase.auth().signOut().then(function() {
-      // Sign-out successful.
+    firebase.auth().currentUser.delete().then(function() {
+      // User deleted.
     }).catch(function(error) {
       // An error happened.
     });
