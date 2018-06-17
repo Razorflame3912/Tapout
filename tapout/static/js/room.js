@@ -123,7 +123,7 @@ firebase.auth().onAuthStateChanged(function(user){
 
 `;
       });
-      pickbutton.addEventListener('touchend', function(){
+      /*pickbutton.addEventListener('touchend', function(){
         if(songbox.value != ''){
           roomRef.child('/songs/' + firebase.auth().currentUser.uid).update({title: songbox.value});
         }
@@ -133,7 +133,7 @@ firebase.auth().onAuthStateChanged(function(user){
 <p><i>Submitted your choice of song!</i></p>
 
 `;
-      });
+      });*/
     }
     if(snapshot.val()== 'tapping'){
       clearInterval(intvl);
@@ -180,7 +180,7 @@ firebase.auth().onAuthStateChanged(function(user){
           audio.volume = 0.5;
 
           tapper.addEventListener("click", buttonTapped);
-          tapper.addEventListener("touchend", buttonTapped);
+          //tapper.addEventListener("touchend", buttonTapped);
           $("body")[0].addEventListener("keyup", buttonTapWrap);
 
 
@@ -329,8 +329,8 @@ firebase.auth().onAuthStateChanged(function(user){
                   };
                   button.addEventListener('click', buttclick);
                   answer.addEventListener('click', buttclick);
-                  button.addEventListener('touchend', buttclick);
-                  answer.addEventListener('touchend', buttclick);
+                  //button.addEventListener('touchend', buttclick);
+                  //answer.addEventListener('touchend', buttclick);
                   if(j==rand){
                     buttonsdiv.appendChild(answer);
                     buttonsdiv.appendChild(document.createElement('br'));
@@ -340,7 +340,7 @@ firebase.auth().onAuthStateChanged(function(user){
                   buttonsdiv.appendChild(document.createElement('br'));
                 }
               }
-              contentdiv.innerHTML += '<br><p id="timer">30</p>';
+              buttonsdiv.innerHTML += '<br><p id="timer">30</p>';
               intvl = setInterval(function(){
                 $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
               },1000);
@@ -389,9 +389,9 @@ firebase.auth().onAuthStateChanged(function(user){
           $('#leave')[0].addEventListener('click',function(){
             document.location.pathname = '/';
           });
-          $('#leave')[0].addEventListener('touchend',function(){
+          /*$('#leave')[0].addEventListener('touchend',function(){
             document.location.pathname = '/';
-          });
+          });U*/
         });
       });
     }
@@ -437,9 +437,9 @@ leavebutton.addEventListener('click',function(){
   document.location.pathname = '/';
 });
 
-leavebutton.addEventListener('touchend',function(){
+/*leavebutton.addEventListener('touchend',function(){
   document.location.pathname = '/';
-});
+});*/
 
 startbutton.addEventListener('click', startGame);
 
