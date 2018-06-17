@@ -243,7 +243,7 @@ firebase.auth().onAuthStateChanged(function(user){
                   var guys = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                   var buttid = '';
                   for(t =0;t<28;t++){
-                    var selected = guys[Math.floor(Math.random() * chars.length)];
+                    var selected = guys[Math.floor(Math.random() * guys.length)];
                     buttid += selected;
                   }
                   button.innerHTML = songname;
