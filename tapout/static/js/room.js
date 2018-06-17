@@ -156,7 +156,7 @@ firebase.auth().onAuthStateChanged(function(user){
           var roundlength = 30000;
           var i;
           var count = 0;
-          for(i in songs){
+          /*for(i in songs){
             console.log(count);
             console.log(i);
             setTimeout(function(){
@@ -164,6 +164,16 @@ firebase.auth().onAuthStateChanged(function(user){
               roomRef.update({currentSong: i });
             },count*roundlength);
             count++;
+          }*/
+          var li = [];
+          for(i in songs){
+            li.push(i);
+          }
+          for(i in li){
+            setTimeout(function(){
+              roomRef.update({currentSong: li[0]});
+              li.shift();
+            },roundlength*i);
           }
           console.log(count);
           setTimeout(function(){
@@ -193,6 +203,7 @@ firebase.auth().onAuthStateChanged(function(user){
               console.log('constructing buttons...');
               console.log(timetable);
               playSeries(timetable);
+              var clicked = false;
               if(firebase.auth().currentUser.uid != usersnap.val()){
 
 
@@ -207,31 +218,34 @@ firebase.auth().onAuthStateChanged(function(user){
                   button.innerHTML = songname;
                   button.id = i;
                   button.addEventListener('click', function(){
-                    console.log(this);
-                    //this.style.color = 'yellow';
-                    var myid = this.id;
-                    var thebutton = this;
-                    roomRef.child('scores').once('value').then(function(scores){
-                      var scoredic = scores.val();
-                      console.log('scores as of rn');
-                      console.log(scoredic);
-                      console.log(myid);
-                      console.log(usersnap.val());
-                      if(myid == usersnap.val()){
-                        scoredic[usersnap.val()] += 500;
-                        scoredic[myid] += 1000;
-                        roomRef.update({scores: scoredic});
-                        thebutton.style.backgroundColor = "green";
-                      }
-                      else{
-                        thebutton.style.backgroundColor = "red";
-                      }
+                    if(!clicked){
+                      clicked = true;
+                      console.log(this);
+                      //this.style.color = 'yellow';
+                      var myid = this.id;
+                      var thebutton = this;
+                      roomRef.child('scores').once('value').then(function(scores){
+                        var scoredic = scores.val();
+                        console.log('scores as of rn');
+                        console.log(scoredic);
+                        console.log(myid);
+                        console.log(usersnap.val());
+                        if(myid == usersnap.val()){
+                          scoredic[usersnap.val()] += 500;
+                          scoredic[myid] += 1000;
+                          roomRef.update({scores: scoredic});
+                          thebutton.style.backgroundColor = "green";
+                        }
+                        else{
+                          thebutton.style.backgroundColor = "red";
+                        }
 
-                      //thebutton.style.backgroundColor = "green";
-                      var correcto = $('#' + usersnap.val())[0];
-                      correcto.style.backgroundColor = "green";
+                        //thebutton.style.backgroundColor = "green";
+                        var correcto = $('#' + usersnap.val())[0];
+                        correcto.style.backgroundColor = "green";
 
-                    });
+                      });
+                    }
                   });
                   //buttondiv.appendChild(button);
                   buttonsdiv.appendChild(button);
