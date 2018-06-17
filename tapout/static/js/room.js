@@ -260,7 +260,7 @@ firebase.auth().onAuthStateChanged(function(user){
               console.log('constructing buttons...');
               console.log(timetable);
               playSeries(timetable);
-              start = Date().now();
+              start = Date.now();
               var clicked = false;
               if(firebase.auth().currentUser.uid != usersnap.val()){
 
@@ -314,7 +314,7 @@ firebase.auth().onAuthStateChanged(function(user){
                         console.log(myid);
                         console.log(usersnap.val());
                         if(myid == usersnap.val()){
-                          var now = Date().now();
+                          var now = Date.now();
                           roomRef.child('scores').child(usersnap.val()).once('value').then(function(snap){
                             var snapscore = snap.val()+500;
                             roomRef.child('scores').child(usersnap.val()).set(snapscore);
