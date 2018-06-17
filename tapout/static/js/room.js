@@ -191,7 +191,7 @@ firebase.auth().onAuthStateChanged(function(user){
           console.log(count);
           setTimeout(function(){
             roomRef.update({state: 'over' });
-          }, count * roundlength);
+          }, li.length * roundlength);
         });
       }
       roomRef.child('songs').once('value').then(function(songs){
@@ -307,7 +307,6 @@ firebase.auth().onAuthStateChanged(function(user){
     if(snapshot.val() == 'over'){
       contentdiv.innerHTML = `
 <h1>Final Scores!</h1>
-<h3>Listen closely!</h3>
 <div id="scores">
 
 </div>
