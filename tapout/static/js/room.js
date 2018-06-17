@@ -321,7 +321,7 @@ firebase.auth().onAuthStateChanged(function(user){
                           });
                             roomRef.child('scores').child(myid).once('value').then(function(snap){
                               var snapscore = snap.val()+(1000 - 15*(Math.floor((now-start)/1000)));
-                              roomRef.child('scores').child(myid).set(snapscore));
+                              roomRef.child('scores').child(myid).set(snapscore);
                           });
                           /*scoredic[usersnap.val()] += 500;
                           scoredic[myid] += 1000;
