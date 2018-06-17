@@ -154,7 +154,7 @@ firebase.auth().onAuthStateChanged(function(user){
               var scoredic = {};
               currentUsers.once('value').then(function(snap){
                 var users = snap.val();
-                for(i in users){
+                for(var i in users){
                   scoredic[users[i]]  = 0;
                 }
                 roomRef.child('scores').set(scoredic);
@@ -280,7 +280,7 @@ firebase.auth().onAuthStateChanged(function(user){
                 answer.innerHTML = songdic[usersnap.val()]['title'].toLowerCase();
                 answer.id = usersnap.val();
                 var j;
-                for(x in songdic){
+                for(var x in songdic){
                   if(x != usersnap.val()){
                     decoys.push(songdic[x]['title']);
                     shuffle(decoys);
@@ -300,7 +300,7 @@ firebase.auth().onAuthStateChanged(function(user){
                   button.className = "btn";
                   var guys = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                   var buttid = '';
-                  for(t =0;t<28;t++){
+                  for(var t =0;t<28;t++){
                     var selected = guys[Math.floor(Math.random() * guys.length)];
                     buttid += selected;
                   }
@@ -387,7 +387,8 @@ firebase.auth().onAuthStateChanged(function(user){
 <div id="scores">
 
 </div>
-<button id="leave">Back to Homepage</button>
+<br>
+<button id="leave" class="btn button">Back to Homepage</button>
 `;
       roomRef.child('scores').orderByValue().once('value').then(function(data){
         var ranklist = [];
@@ -400,10 +401,10 @@ firebase.auth().onAuthStateChanged(function(user){
         scorelist.reverse();
         var namelist = [];
         db.ref('/users').once('value').then(function(users){
-          for(i in ranklist){
+          for(var i in ranklist){
             namelist.push(users.val()[ranklist[i]]['name']);
           }
-          for(l = 0;l<ranklist.length;l++){
+          for(var l = 0;l<ranklist.length;l++){
             var rankdiv = document.createElement('div');
             var namediv = document.createElement('div');
             namediv.innerHTML = namelist[l];
@@ -416,16 +417,9 @@ firebase.auth().onAuthStateChanged(function(user){
           $('#leave')[0].addEventListener('click',function(){
             document.location.pathname = '/';
           });
-          /*$('#leave')[0].addEventListener('touchend',function(){
-            document.location.pathname = '/';
-          });U*/
         });
       });
     }
-
-
-
-
 
 
   });
