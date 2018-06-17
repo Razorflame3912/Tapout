@@ -96,6 +96,12 @@ firebase.auth().onAuthStateChanged(function(user){
         if(songbox.value != ''){
           roomRef.child('/songs/' + firebase.auth().currentUser.uid).update({title: songbox.value});
         }
+        songbox.remove();
+        pickbutton.remove();
+        contentdiv.innerHTML += `
+<p><i>Submitted your choice of song!</i></p>
+
+`;
       });
     }
     if(snapshot.val()== 'tapping'){
