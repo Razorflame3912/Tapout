@@ -265,7 +265,7 @@ firebase.auth().onAuthStateChanged(function(user){
               var buttonsdiv = $('#buttons')[0];
               clearInterval(intvl);
               buttonsdiv.innerHTML = '';
-              header.innerHTML = currentname + "'s song tapped out!";
+              header.innerHTML = "<pre>" + currentname + "</pre>'s song tapped out!";
               console.log('constructing buttons...');
               console.log(timetable);
               playSeries(timetable);
