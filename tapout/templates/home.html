@@ -1,20 +1,24 @@
 {% extends "base.html" %}
 {% block title %}Tapout!{% endblock %}
 
+{% block css %}<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css' ) }}">{% endblock %}
+
 {% block body %}
 <center>
-  
-<h1>Welcome to Tapout!</h1>
-<input type="text" id="namebar" placeholder="Name" name="username" required><br>
-<input type="text" id="codebar" placeholder="Room Code" name="roomcode"><br><br>
-<input id="joinbutton" type="submit" name="submit" value="Join a Room!" class="btn"><br><br>
+  <div class="needs-more-backing rounded">
 
+  <h1>Welcome to Tapout!</h1> <br />
+  <input type="text" id="namebar" placeholder="Your Name" name="username" required> <br />
+  <input type="text" id="codebar" placeholder="Room Code" name="roomcode" required> <br />
+  <input id="joinbutton" type="submit" name="submit" value="Join a Room!" class="btn"> <br /> <br />
 
-Or...
-<br><br>
-<input id="createbutton" type="submit" name="submit" value="Create a Room!" class="btn">
-<br>
+  Or...
 
+  <br><br>
+  <input type="text" id="namebar-create" placeholder="Your Name" name="username" required> <br />
+  <input id="createbutton" type="submit" name="submit" value="Create a Room!" class="btn">
+  <br /> <br />
+  </div>
 </center>
 {% endblock %}
 
