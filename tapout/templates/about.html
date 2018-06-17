@@ -2,6 +2,27 @@
 
 {% block title %}About -- Tapout!{% endblock %}
 
+{% block css %} <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/about.css' ) }}"> {% endblock %}
+
 {% block body %}
-Filler
+<div class="backing rounded">
+  <h1> Introduction </h1>
+  <p>
+    Hello, and welcome to <b> Tapout! </b> a fun party game for up to 8 players. Ever have a song stuck in your head and tap it out to void your head of the nonsense? Ever have anybody know what song it was? No! Because it's increadibly hard.
+  </p>
+  <br />
+  <h1> What Tapout! is </h1>
+  <p>
+    That's why we at Tapout! have created a game around this very idea. Here on Tapout! you create rooms of (recommended) 3-8 players, and tap out a tune. Other players will guess your tune, and points will be awarded based on how well you guess as well as how accurately you tap out the song. Good luck and have fun~
+  </p> <br />
+  <h1> Meet the Dev Team! </h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-8 col-lg-4 pic"><center><img id="mansour" src="{{ url_for('static', filename='img/mansour.jpg' ) }}" class="rounded-circle dev-img"><br />Mansour Elsharawy</center></div>
+      <div class="col-xs-8 col-lg-4 pic"><center><img id="jake" src="{{ url_for('static', filename='img/jake.jpg' ) }}" class="rounded-circle dev-img"><br />Jake Zaia</center></div>
+      <div class="col-xs-8 col-lg-4 pic"><center><img id="jennifer" src="{{ url_for('static', filename='img/jennifer.jpg' ) }}" class="rounded-circle dev-img"><br />Jennifer Zhang</center></div>
+    </div>
+  </div>
+
+</div>
 {% endblock %}
