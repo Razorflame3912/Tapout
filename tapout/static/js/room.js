@@ -82,7 +82,7 @@ firebase.auth().onAuthStateChanged(function(user){
           setTimeout(function(){
             console.log("time's up! updating");
             roomRef.update({state: 'tapping'});
-          },20000);
+          },35000);
         }
       });
       contentdiv.innerHTML = '';
@@ -93,7 +93,7 @@ firebase.auth().onAuthStateChanged(function(user){
 <input id="songname" type="text" placeholder="Ex: 'Sugar' by Maroon 5">
 <button id="picked" class="btn">Submit!</button>
 </div>
-<p id="timer">20</p>
+<p id="timer">35</p>
 `;
       var songbox = $('#songname')[0];
       var pickbutton = $('#picked')[0];
@@ -170,6 +170,15 @@ firebase.auth().onAuthStateChanged(function(user){
           intvl = setInterval(function(){
             $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
           },1000);
+          roomRef.child('/songs/' + firebase.auth().currentUser).once('value').then(function(data){
+            if(data.val() == null){
+              var p = document.createElement('p');
+              p.innerHTML = "You didn't select a song! Tap out Happy Birthday now!";
+              roomRef.child('/songs/' + firebase.auth().currentUser).update({title: 'Happy Birthday'});
+              contentdiv.appendChild(p);
+
+            }
+          });
           tapper = document.getElementById("tapper");
           taplist = [];
           startTime = Date.now();
@@ -281,7 +290,7 @@ firebase.auth().onAuthStateChanged(function(user){
                 for(j=0; j<5; j++){
                   var songname = decoys[0].toLowerCase();
                   decoys.shift();
-                  while(songname == usersnap.val()){
+                  while(songname == songdic[usersnap.val()]['title']){
                     songname = decoys[0].toLowerCase();
                     decoys.shift();
                   }
