@@ -75,7 +75,7 @@ firebase.auth().onAuthStateChanged(function(user){
 <h1>Type in the song you will Tap Out!</h1>
 <h2>Include the song name and author(If there is one)!</h2>
 <input id="songname" type="text" placeholder="Ex: 'Sugar' by Maroon 5">
-<button id="picked">Submit!</button>
+<button id="picked" class="btn">Submit!</button>
 `;
       var songbox = $('#songname')[0];
       var pickbutton = $('#picked')[0];
@@ -200,7 +200,8 @@ firebase.auth().onAuthStateChanged(function(user){
                   console.log('songname: ' + songname);
                   //var buttondiv = document.createElement('div');
                   var button = document.createElement('button');
-                  button.innerHTML = songname;
+		    button.className = "btn";		    
+		    button.innerHTML = songname;
                   button.id = i;
                   button.addEventListener('click', function(){
                     console.log(this);
