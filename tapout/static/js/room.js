@@ -246,8 +246,8 @@ firebase.auth().onAuthStateChanged(function(user){
 
     }
 
-    if(snapshot.val() == 'over')
-      //document.location.pathname = '/sakljfdls';
+    /*if(snapshot.val() == 'over')
+      document.location.pathname = '/sakljfdls';*/
   });
 
 });
