@@ -236,6 +236,7 @@ firebase.auth().onAuthStateChanged(function(user){
                 var rand = Math.floor(Math.random() * 5);
                 for(j=0; j<5; j++){
                   var songname = decoys[0];
+                  decoys.shift();
                   console.log('songname: ' + songname);
                   //var buttondiv = document.createElement('div');
                   var button = document.createElement('button');
