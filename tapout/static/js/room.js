@@ -170,11 +170,11 @@ firebase.auth().onAuthStateChanged(function(user){
           intvl = setInterval(function(){
             $('#timer')[0].innerHTML = parseInt($('#timer')[0].innerHTML) - 1;
           },1000);
-          roomRef.child('/songs/' + firebase.auth().currentUser).once('value').then(function(data){
+          roomRef.child('/songs/' + firebase.auth().currentUser.uid).once('value').then(function(data){
             if(data.val() == null){
               var p = document.createElement('p');
               p.innerHTML = "You didn't select a song! Tap out Happy Birthday now!";
-              roomRef.child('/songs/' + firebase.auth().currentUser).update({title: 'Happy Birthday'});
+              roomRef.child('/songs/' + firebase.auth().currentUser.uid).update({title: 'Happy Birthday'});
               contentdiv.appendChild(p);
 
             }
