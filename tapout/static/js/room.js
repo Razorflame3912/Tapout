@@ -24,6 +24,21 @@ var decoys = [
   'By My Side', 'Treat You Better', "Stitches", "Despacito", "Baby",'Hey Jude', 'Take on Me by a-ha', 'The Star Spangled Banner', 'Star Wars Theme',"Beethoven's 5th Symphony", 'Ode to Joy', 'Thriller by Michael Jackson', "Say You Won't Let Go by James Arthur", "Can I Be Him by James Arthur", 'Love Runs Out by OneRepublic', 'Viva La Vida','Pokemon Theme Song', 'Mario Theme', 'Kirby Theme', 'The Duck Song', 'Demons by Imagine Dragons',"It's Not Like I Like You by Static-P", "7 Years","Wavin' Flag by K'NAAN","Waka Waka by Shakira","America the Beautiful","God Bless America","USSR National Anthem","Sorry by Justin Bieber","Love Yourself","Back to December by Taylor Swift","Shake it Off","Firework","Dynamite by Taio Cruz","500 Miles by The Proclaimers","A Thousand Miles by Vanessa Carlton","Party in the USA", "Stay With Me","I Miss the Misery by Halestorm","Drive By by Train","Hey Soul Sister by Train","Marry Me by Train","Happy Birthday","Jingle Bells","Twinkle Twinkle Little Star", "Mary had a Little Lamb","Row, Row, Row Your Boat","What Makes You Beautiful by One Direction","So What by PINK","I Want It That Way by The Backstreet Boys", "Cheerleader by Ne-Yo","Happy by Pharrell Williams","Pompeii by Bastille","All Star","Mustache by Harry Harvey","Ugandan National Anthem","I Told You So by Kelly Macks","Some Nighs by fun","The Nights by Avicii","Gangnam Style","Pomp & Circumstance","The Wedding Song","Kids in the Dark by All Time Low","11 Blocks by Wrabel","You Fooled by Divided by Friday","Centuries by Fallout Boy","Sugar by Maroon 5","Payphone", "Moves Like Jagger", "Stressed Out by Twenty One Pilots", "Hello by Adele", "Imperial March", "Undertale Theme","Wii Music","Spiderman Theme Song","House of Gold by Twenty One Pilots","Bullet by Hollywood Undead","Fireflies", "I Really Like You by Carly Rae Jaepsen","Arthur Theme Song","Sesame Street Theme Song","Gravity Falls Theme Song","Ride of the Valkyries","1812 Overture","Pon Pon Pon","Cotton Eye Joe","Never Gonna Give You Up","Da Ba Dee","Perfect by Ed Sheeran","Castle on the Hill by Ed Sheeran","Photograph by Ed Sheeran","Thinking Out Loud by Ed Sheeran","Hotline Bling","Wake Me Up by Avicii","Down by J-Shawn", "La Cucaracha", "Indiana Jones theme song", "Counting Stars", "Hallelujah","the coconut song", "let it go", "can you feel the love tonight by elton john", "don't stop believing", "livin' on a prayer", "eye of the tiger", "Get lucky by Daft Punk","bohemian rhapsody","the final countdown","we are the champions by queen","bad by michael jackson", "can't help falling in love", "the alphabet song", "dj got us falling in love again", "glad you came", "bad romance by lady gaga", "born this way by lady gaga", "the macarena", "amazing grace", "applause", "best day ever by spongebob", "the fun song", "i can show you the world by aladdin", "under the sea", "six trillion years and overnight story", "you've got a friend in me"
 ];
 
+var badchars = "<>/\\";
+var sanitize = function(input){
+    //var temp = input;
+    if(input == null || input.length == 0 || input == " "){
+        return "null";
+    }
+    for(var c in badchars){
+        if(input.includes(badchars[c])){
+            var ind = input.indexOf(badchars[c]);
+            input = input.slice(0, ind) + input.slice(ind+1, input.length);
+        }
+    }
+    return input;
+};
+
 roomRef.child('state').once('value').then(function(stateval){
   if(stateval.val() != "waiting"){
     document.location.pathname = '/';
@@ -63,7 +78,7 @@ firebase.auth().onAuthStateChanged(function(user){
         username = userdict[users[i]]['name'];
         console.log(username);
         var userdiv = document.createElement('div');
-        userdiv.innerHTML = username;
+        userdiv.innerHTML = sanitize(username);
         userbox.appendChild(userdiv);
       }
     });
@@ -265,7 +280,7 @@ firebase.auth().onAuthStateChanged(function(user){
               var buttonsdiv = $('#buttons')[0];
               clearInterval(intvl);
               buttonsdiv.innerHTML = '';
-              header.innerHTML =  currentname + "'s song is being tapped out!";
+              header.innerHTML =  sanitize(currentname) + "'s song is being tapped out!";
               console.log('constructing buttons...');
               console.log(timetable);
               playSeries(timetable);
@@ -291,7 +306,7 @@ firebase.auth().onAuthStateChanged(function(user){
                   var songname = decoys[0].toLowerCase();
                   decoys.shift();
                   while(songname == songdic[usersnap.val()]['title']){
-                    songname = decoys[0].toLowerCase();
+                    songname = sanitize(decoys[0].toLowerCase());
                     decoys.shift();
                   }
                   console.log('songname: ' + songname);
@@ -304,7 +319,7 @@ firebase.auth().onAuthStateChanged(function(user){
                     var selected = guys[Math.floor(Math.random() * guys.length)];
                     buttid += selected;
                   }
-                  button.innerHTML = songname;
+                  button.innerHTML = sanitize(songname);
                   button.id = buttid;
                   button.className = "btn answer-choice";
                   var buttclick = function(){
